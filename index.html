@@ -1006,11 +1006,11 @@ const TRANSLATIONS = {
   en: {
     gateTitle: 'Have you visited Karnataka before?',
     gateSub: 'Your answer takes you to the right form — both get you a free Prayana itinerary on launch.',
-    gateYes: 'Yes — I've been to Karnataka', gateYesSub: 'Share your real trip → become a Founding Explorer',
-    gateNo: 'No — but I want to visit', gateNoSub: 'Tell us what you're looking for',
-    gateMaybe: 'Not sure — just exploring', gateMaybeSub: 'That's perfect — we want to hear from you too',
+    gateYes: 'Yes — I have been to Karnataka', gateYesSub: 'Share your real trip and become a Founding Explorer',
+    gateNo: 'No — but I want to visit', gateNoSub: 'Tell us what you are looking for',
+    gateMaybe: 'Not sure — just exploring', gateMaybeSub: 'That is perfect — we want to hear from you too',
     redirectTitle: 'You qualify for the Founding Explorer program!',
-    redirectSub: 'Since you've visited Karnataka, fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.',
+    redirectSub: 'Since you have visited Karnataka, fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.',
     redirectBtn: '🏅 Open Founding Explorer Form →',
     redirectSkip: 'Or continue with this survey instead →',
     s1: 'Who You Are as a Traveller', s2: 'Karnataka — What You Know',
@@ -1045,46 +1045,51 @@ function setLang(lang) {
   currentLang = lang;
   const t = TRANSLATIONS[lang];
   const isKN = lang === 'kn';
-  const knFont = 'font-family: Noto Serif Kannada, serif;';
 
+  // Toggle button styles
   document.getElementById('btnEN').style.background = isKN ? 'transparent' : '#C8102E';
   document.getElementById('btnEN').style.color = isKN ? '#7A6A50' : 'white';
   document.getElementById('btnKN').style.background = isKN ? '#C8102E' : 'transparent';
   document.getElementById('btnKN').style.color = isKN ? 'white' : '#7A6A50';
 
+  function applyKN(el) {
+    if (!el) return;
+    el.style.fontFamily = isKN ? 'Noto Serif Kannada, serif' : '';
+    el.style.fontSize = isKN ? '13px' : '';
+  }
+
   // Gate screen
   const gt = document.querySelector('#gateScreen .gate-title');
   const gs = document.querySelector('#gateScreen .gate-sub');
   const opts = document.querySelectorAll('.gate-opt');
-  if(gt) { gt.textContent = t.gateTitle; gt.style = isKN ? knFont : ''; }
-  if(gs) { gs.textContent = t.gateSub; gs.style = isKN ? knFont : ''; }
-  if(opts[0]) { opts[0].querySelector('.gate-opt-text').textContent = t.gateYes; opts[0].querySelector('.gate-opt-text').style = isKN ? knFont : ''; opts[0].querySelector('.gate-opt-sub').textContent = t.gateYesSub; }
+  if(gt) { gt.textContent = t.gateTitle; applyKN(gt); }
+  if(gs) { gs.textContent = t.gateSub; applyKN(gs); }
+  if(opts[0]) { opts[0].querySelector('.gate-opt-text').textContent = t.gateYes; opts[0].querySelector('.gate-opt-sub').textContent = t.gateYesSub; applyKN(opts[0].querySelector('.gate-opt-text')); }
   if(opts[1]) { opts[1].querySelector('.gate-opt-text').textContent = t.gateNo; opts[1].querySelector('.gate-opt-sub').textContent = t.gateNoSub; }
   if(opts[2]) { opts[2].querySelector('.gate-opt-text').textContent = t.gateMaybe; opts[2].querySelector('.gate-opt-sub').textContent = t.gateMaybeSub; }
 
   // Redirect
   const rt = document.querySelector('#redirectScreen .redirect-title');
   const rs = document.querySelector('#redirectScreen .redirect-sub');
-  const rb = document.querySelector('#redirectScreen .redirect-btn span, #redirectScreen .redirect-btn');
   const rsk = document.querySelector('#redirectScreen .redirect-skip');
-  if(rt){ rt.textContent = t.redirectTitle; rt.style = isKN ? knFont : ''; }
-  if(rs){ rs.textContent = t.redirectSub; rs.style = isKN ? knFont : ''; }
-  if(rsk){ rsk.textContent = t.redirectSkip; rsk.style = isKN ? knFont : ''; }
+  if(rt){ rt.textContent = t.redirectTitle; applyKN(rt); }
+  if(rs){ rs.textContent = t.redirectSub; applyKN(rs); }
+  if(rsk){ rsk.textContent = t.redirectSkip; applyKN(rsk); }
 
   // Section titles
   const secTitles = document.querySelectorAll('.section-ttl');
   const keys = ['s1','s2','s3','s4','s5','s6'];
-  secTitles.forEach((el,i) => { if(keys[i] && t[keys[i]]) { el.textContent = t[keys[i]]; el.style = isKN ? knFont : ''; }});
+  secTitles.forEach((el,i) => { if(keys[i] && t[keys[i]]) { el.textContent = t[keys[i]]; applyKN(el); }});
 
   // Submit button
   const submitBtn = document.querySelector('.btn-submit');
-  if(submitBtn){ submitBtn.innerHTML = t.submit; submitBtn.style = isKN ? knFont : ''; }
+  if(submitBtn){ submitBtn.innerHTML = t.submit; }
 
   // Success screen
   const st = document.querySelector('#successScreen .success-title');
   const ss = document.querySelector('#successScreen .success-sub');
-  if(st){ st.textContent = t.successTitle; st.style = isKN ? knFont+'font-size:26px;' : ''; }
-  if(ss){ ss.textContent = t.successSub; ss.style = isKN ? knFont : ''; }
+  if(st){ st.textContent = t.successTitle; applyKN(st); }
+  if(ss){ ss.textContent = t.successSub; applyKN(ss); }
 }
 </script>
 </body>
