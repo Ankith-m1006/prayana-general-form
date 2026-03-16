@@ -150,7 +150,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div>
     <div class="nav-logo">PRAYANA</div>
@@ -159,7 +158,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
   <div class="nav-badge">Karnataka Survey</div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-eyebrow">🗺 Community Survey</div>
   <h1 class="hero-title">Help us build Karnataka's<br><em>best travel app.</em></h1>
@@ -171,10 +169,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- PROGRESS -->
   <div class="progress-wrap" id="progressWrap" style="display:none;">
     <div class="progress-top">
       <div class="progress-label" id="stepLabel">Section 1 of 6</div>
@@ -184,7 +180,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
     <div class="step-dots" id="stepDots"></div>
   </div>
 
-  <!-- ══ GATE SCREEN ══ -->
   <div id="gateScreen">
     <div class="gate-screen">
       <div class="gate-title">Have you visited Karnataka before?</div>
@@ -215,20 +210,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
     </div>
   </div>
 
-  <!-- ══ REDIRECT TO FOUNDING EXPLORER ══ -->
   <div id="redirectScreen" class="redirect-screen">
     <div class="redirect-icon">🏅</div>
     <div class="redirect-title">You qualify for the Founding Explorer program!</div>
     <div class="redirect-sub">Since you've already visited Karnataka, we want your real trip experience — food spots, hidden places, transport tips. Fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.</div>
-    <a href="founding-explorer.html" class="redirect-btn">🏅 Open Founding Explorer Form →</a>
+    <a href="https://ankith-m1006.github.io/prayana-form/index.html" class="redirect-btn">🏅 Open Founding Explorer Form →</a>
     <br/><br/>
     <div style="font-size:13px;color:var(--muted);cursor:pointer;" onclick="handleGate('no')">Or continue with this survey instead →</div>
   </div>
 
-  <!-- ══ MAIN FORM ══ -->
   <form id="mainForm" style="display:none;">
 
-    <!-- SECTION 1: WHO YOU ARE -->
     <div class="form-section active" id="sec1">
       <div class="section-card">
         <div class="section-hd">
@@ -335,7 +327,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
       </div>
     </div>
 
-    <!-- SECTION 2: KARNATAKA -->
     <div class="form-section" id="sec2">
       <div class="section-card">
         <div class="section-hd">
@@ -436,7 +427,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
       </div>
     </div>
 
-    <!-- SECTION 3: PLANNING BEHAVIOUR -->
     <div class="form-section" id="sec3">
       <div class="section-card">
         <div class="section-hd">
@@ -510,7 +500,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
       </div>
     </div>
 
-    <!-- SECTION 4: PERFECT ITINERARY -->
     <div class="form-section" id="sec4">
       <div class="section-card">
         <div class="section-hd">
@@ -599,7 +588,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
       </div>
     </div>
 
-    <!-- SECTION 5: FUN KARNATAKA QUIZ -->
     <div class="form-section" id="sec5">
       <div class="section-card">
         <div class="section-hd">
@@ -673,7 +661,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
       </div>
     </div>
 
-    <!-- SECTION 6: ABOUT PRAYANA -->
     <div class="form-section" id="sec6">
       <div class="section-card">
         <div class="section-hd">
@@ -759,7 +746,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
 
   </form>
 
-  <!-- SUCCESS -->
   <div class="success-screen" id="successScreen">
     <div class="success-icon">🎉</div>
     <h2 class="success-title">ಧನ್ಯವಾದಗಳು!</h2>
@@ -775,11 +761,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
 </div>
 
 <script>
-// ── GOOGLE SHEETS URL — paste yours here ──
+// ── GOOGLE SHEETS URL ──
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzrWwL-VD9bc2R9pkLr8jUJVGyCtcGNao1RmQ-JtIFjv_I8eNTUCbQFcN3ei-wHrsaW/exec';
 
 // ── FOUNDING EXPLORER FORM URL ──
-const FOUNDING_URL = 'https://ankith-m1006.github.io/prayana-form/'; // update to your actual URL
+const FOUNDING_URL = 'https://ankith-m1006.github.io/prayana-form/index.html'; 
 
 // ── GATE ──
 function handleGate(ans) {
@@ -815,7 +801,7 @@ function updateProgress() {
   const pct = Math.round(((currentSection - 1) / TOTAL_SECTIONS) * 100);
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = pct + '%';
-  document.getElementById('stepLabel').textContent = `Section ${currentSection} of ${TOTAL_SECTIONS}`;
+  document.getElementById('stepLabel').textContent = Section ${currentSection} of ${TOTAL_SECTIONS};
   for (let i = 1; i <= TOTAL_SECTIONS; i++) {
     const d = document.getElementById('dot_' + i);
     if (!d) continue;
@@ -851,7 +837,7 @@ function tog(el, color='') {
 }
 
 function selOne(el, group) {
-  document.querySelectorAll(`[onclick="selOne(this,'${group}')"]`).forEach(b => b.classList.remove('on','gr','yl'));
+  document.querySelectorAll([onclick="selOne(this,'${group}')"]).forEach(b => b.classList.remove('on','gr','yl'));
   el.classList.add('on');
   const inp = document.getElementById(group + '_val');
   if (inp) inp.value = el.textContent.trim();
@@ -872,25 +858,10 @@ function cc(el, id) {
 
 // Collect all multi-select tag values into hidden inputs
 function collectTagValues() {
-  const tagGroups = {
-    'traveller_type_val': '#sec1 .tag-row:nth-of-type(3)',
-    'heard_of_val': '#sec2 .tag-row:nth-of-type(1)',
-    'region_interest_val': '#sec2 .tag-row:nth-of-type(2)',
-    'planning_method_val': '#sec3 .tag-row:nth-of-type(1)',
-    'itinerary_needs_val': '#sec4 .tag-row:nth-of-type(1)',
-    'app_missing_val': '#sec4 .tag-row:nth-of-type(3)',
-    'trust_factors_val': '#sec4 .tag-row:nth-of-type(5)',
-    'karnataka_knowledge_val': '#sec5 .tag-row:nth-of-type(1)',
-    'karnataka_food_tried_val': '#sec5 .tag-row:nth-of-type(2)',
-    'karnataka_association_val': '#sec5 .tag-row:nth-of-type(4)',
-    'download_trigger_val': '#sec6 .tag-row:nth-of-type(2)',
-  };
-  // Collect all .on tags per section
   document.querySelectorAll('.form-section').forEach(sec => {
     const tagRows = sec.querySelectorAll('.tag-row');
     tagRows.forEach(row => {
       const onTags = Array.from(row.querySelectorAll('.tag.on')).map(t => t.textContent.trim());
-      // Find nearest hidden input
       const nextEl = row.nextElementSibling;
       if (nextEl && nextEl.tagName === 'INPUT' && nextEl.type === 'hidden') {
         nextEl.value = onTags.join(' | ');
@@ -942,14 +913,21 @@ function getRankOrder() {
 async function submitForm() {
   collectTagValues();
 
-  const fd = new FormData(document.getElementById('mainForm'));
-  const data = { submittedAt: new Date().toISOString(), formType: 'general_survey' };
-  fd.forEach((v, k) => { if (v && v !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') data[k] = v; });
+  const data = { 
+    submittedAt: new Date().toISOString(), 
+    formType: 'general_survey' 
+  };
+
+  const allInputs = document.querySelectorAll('#mainForm input, #mainForm select, #mainForm textarea');
+  allInputs.forEach(input => {
+    if (input.name && input.value) {
+      data[input.name] = input.value;
+    }
+  });
+
   data.itinerary_priority_rank = getRankOrder();
 
-  console.log('Prayana Survey Data:', JSON.stringify(data, null, 2));
-
-  if (SHEET_URL && SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+  if (SHEET_URL && SHEET_URL.startsWith('https')) {
     try {
       await fetch(SHEET_URL, {
         method: 'POST',
@@ -958,7 +936,7 @@ async function submitForm() {
         body: JSON.stringify(data)
       });
     } catch(err) {
-      console.error('Sheet save failed:', err);
+      console.error('Submission failed:', err);
     }
   }
 
