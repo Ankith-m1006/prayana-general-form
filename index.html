@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prayana — Karnataka Traveller Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700;800&family=Noto+Serif+Kannada:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --red:#C8102E;--yellow:#F5C518;--forest:#2D5016;
+  --dark:#1A1208;--muted:#7A6A50;--border:#E0D4C0;
+  --bg:#FAFAF7;--card:#FFFFFF;--light:#F5EFE4;--gold:#D4AF37;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.35;}
+
+/* NAV */
+.nav{background:rgba(250,250,247,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--red);letter-spacing:3px;line-height:1;}
+.nav-kn{font-family:'Noto Serif Kannada',serif;font-size:11px;color:var(--muted);}
+.nav-badge{background:var(--red);color:white;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:0.5px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0D1A04 0%,var(--forest) 55%,#1A3A08 100%);padding:60px 28px 52px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(245,197,24,.12) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(200,16,46,.1) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(200,16,46,.2);border:1px solid rgba(200,16,46,.4);border-radius:24px;padding:6px 16px;margin-bottom:20px;font-size:12px;font-weight:700;color:#FF6B8A;letter-spacing:1px;text-transform:uppercase;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,42px);font-weight:900;color:#FFF;line-height:1.15;margin-bottom:14px;}
+.hero-title em{color:var(--yellow);font-style:italic;}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.62);max-width:560px;margin:0 auto 28px;line-height:1.65;}
+.hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;}
+.hero-stat{text-align:center;}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--yellow);line-height:1;}
+.hero-stat-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;}
+
+/* PROGRESS */
+.progress-wrap{padding:20px 0 28px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.progress-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.progress-pct{font-size:12px;font-weight:800;color:var(--red);}
+.progress-track{background:var(--border);border-radius:8px;height:5px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--yellow));border-radius:8px;transition:width .4s ease;width:0%;}
+.step-dots{display:flex;gap:6px;justify-content:center;margin-top:10px;}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:.2s;}
+.step-dot.active{background:var(--red);transform:scale(1.3);}
+.step-dot.done{background:var(--forest);}
+
+/* MAIN */
+.main{max-width:720px;margin:0 auto;padding:36px 20px 80px;}
+
+/* GATE SCREEN */
+.gate-screen{text-align:center;padding:20px 0;}
+.gate-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--dark);margin-bottom:10px;}
+.gate-sub{font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.6;}
+.gate-options{display:flex;flex-direction:column;gap:12px;max-width:480px;margin:0 auto;}
+.gate-opt{
+  display:flex;align-items:center;gap:16px;
+  background:var(--card);border:2px solid var(--border);
+  border-radius:16px;padding:18px 20px;cursor:pointer;
+  transition:.2s;text-align:left;
+}
+.gate-opt:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,16,46,.1);}
+.gate-opt-icon{font-size:28px;flex-shrink:0;}
+.gate-opt-text{font-size:15px;font-weight:700;color:var(--dark);}
+.gate-opt-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* REDIRECT SCREEN */
+.redirect-screen{display:none;text-align:center;padding:40px 20px;}
+.redirect-icon{font-size:56px;margin-bottom:16px;}
+.redirect-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--dark);margin-bottom:10px;}
+.redirect-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6;max-width:440px;margin-left:auto;margin-right:auto;}
+.redirect-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),#B8960C);color:#1A1208;border:none;border-radius:14px;padding:14px 32px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;text-decoration:none;transition:.2s;}
+.redirect-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,175,55,.3);}
+
+/* FORM SECTIONS */
+.form-section{display:none;}
+.form-section.active{display:block;}
+
+/* SECTION CARD */
+.section-card{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:28px;margin-bottom:18px;box-shadow:0 4px 20px rgba(107,63,31,.07);}
+.section-hd{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.section-num{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:var(--red);color:white;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.section-ttl{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;line-height:1.2;}
+.section-sub{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;}
+
+/* FIELDS */
+.field{margin-bottom:18px;}
+.field:last-child{margin-bottom:0;}
+.fl{font-size:12px;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;display:flex;align-items:center;gap:5px;}
+.fl .req{color:var(--red);}
+.fhint{font-size:11px;color:var(--muted);margin-bottom:7px;font-style:italic;line-height:1.4;}
+input[type=text],input[type=email],select,textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);background:var(--bg);outline:none;transition:border .2s,background .2s;resize:vertical;}
+input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+
+/* TAGS */
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.tag{padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);background:var(--bg);transition:.18s;user-select:none;}
+.tag:hover{border-color:var(--red);color:var(--red);}
+.tag.on{background:var(--red);color:#fff;border-color:var(--red);}
+.tag.on.gr{background:var(--forest);border-color:var(--forest);}
+.tag.on.yl{background:var(--yellow);color:var(--dark);border-color:var(--yellow);}
+
+/* SCALE */
+.scale-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.sbtn{min-width:44px;padding:9px 12px;border-radius:10px;font-size:13px;font-weight:700;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;transition:.15s;text-align:center;color:var(--muted);font-family:'DM Sans',sans-serif;}
+.sbtn:hover{border-color:var(--red);color:var(--red);}
+.sbtn.on{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* RANK */
+.rank-list{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+.rank-item{display:flex;align-items:center;gap:10px;background:var(--light);border:1px solid var(--border);border-radius:10px;padding:10px 14px;cursor:grab;user-select:none;transition:.15s;}
+.rank-item:hover{border-color:var(--red);}
+.rank-num{width:24px;height:24px;border-radius:50%;background:var(--red);color:white;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rank-txt{font-size:13px;font-weight:600;color:var(--dark);}
+.rank-drag{font-size:16px;color:var(--muted);margin-left:auto;}
+
+/* NAV BUTTONS */
+.nav-btns{display:flex;gap:12px;margin-top:28px;}
+.btn-back{flex:1;background:none;border:1.5px solid var(--border);border-radius:14px;padding:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--dark);color:var(--dark);}
+.btn-next{flex:2;background:linear-gradient(135deg,var(--red),#8B0D20);color:white;border:none;border-radius:14px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(200,16,46,.28);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(200,16,46,.38);}
+.btn-submit{flex:2;background:linear-gradient(135deg,var(--forest),#1A3A08);color:white;border:none;border-radius:14px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(45,80,22,.28);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit:hover{transform:translateY(-1px);}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:60px 20px;}
+.success-icon{font-size:72px;margin-bottom:16px;animation:popIn .5s ease;}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--dark);margin-bottom:10px;}
+.success-sub{font-size:15px;color:var(--muted);margin-bottom:24px;line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto;}
+.success-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;max-width:420px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(107,63,31,.08);}
+.success-reward{font-size:14px;font-weight:700;color:var(--dark);}
+.success-reward-sub{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* INFO BOX */
+.info-box{background:#FFFAE6;border:1px solid rgba(245,197,24,.4);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--dark);line-height:1.5;}
+
+/* CHAR COUNT */
+.char-wrap{position:relative;}
+.cc{position:absolute;bottom:8px;right:10px;font-size:10px;color:var(--muted);}
+
+/* SECTION LABEL */
+.q-label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div>
+    <div class="nav-logo">PRAYANA</div>
+    <div class="nav-kn">ಪ್ರಯಾಣ</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="display:flex;background:#F5EFE4;border:1.5px solid #E0D4C0;border-radius:24px;padding:3px;gap:2px;">
+      <button id="btnEN" onclick="setLang('en')" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:#C8102E;color:white;font-family:'DM Sans',sans-serif;">EN</button>
+      <button id="btnKN" onclick="setLang('kn')" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:transparent;color:#7A6A50;font-family:'Noto Serif Kannada',serif;">ಕನ್ನಡ</button>
+    </div>
+    <div class="nav-badge">Karnataka Survey</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">🗺 Community Survey</div>
+  <h1 class="hero-title">Help us build Karnataka's<br><em>best travel app.</em></h1>
+  <p class="hero-desc">4 minutes. 25 questions. Your answers directly shape what Prayana builds next — and you get early access + a Founding Contributor badge for helping.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Minutes</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">25</div><div class="hero-stat-label">Questions</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">🎁</div><div class="hero-stat-label">Free itinerary</div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-top">
+      <div class="progress-label" id="stepLabel">Section 1 of 6</div>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="step-dots" id="stepDots"></div>
+  </div>
+
+  <!-- ══ GATE SCREEN ══ -->
+  <div id="gateScreen">
+    <div class="gate-screen">
+      <div class="gate-title">Have you visited Karnataka before?</div>
+      <div class="gate-sub">Your answer takes you to the right form — both are quick and both get you a free Prayana itinerary when we launch.</div>
+      <div class="gate-options">
+        <div class="gate-opt" onclick="handleGate('yes')">
+          <div class="gate-opt-icon">✅</div>
+          <div>
+            <div class="gate-opt-text">Yes — I've been to Karnataka</div>
+            <div class="gate-opt-sub">Share your real trip experience → become a Founding Explorer</div>
+          </div>
+        </div>
+        <div class="gate-opt" onclick="handleGate('no')">
+          <div class="gate-opt-icon">🗺</div>
+          <div>
+            <div class="gate-opt-text">No — but I want to / planning to</div>
+            <div class="gate-opt-sub">Tell us what you're looking for → help shape what we build</div>
+          </div>
+        </div>
+        <div class="gate-opt" onclick="handleGate('no')">
+          <div class="gate-opt-icon">🤔</div>
+          <div>
+            <div class="gate-opt-text">Not sure — just exploring</div>
+            <div class="gate-opt-sub">That's perfect — we want to hear from you too</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ REDIRECT TO FOUNDING EXPLORER ══ -->
+  <div id="redirectScreen" class="redirect-screen">
+    <div class="redirect-icon">🏅</div>
+    <div class="redirect-title">You qualify for the Founding Explorer program!</div>
+    <div class="redirect-sub">Since you've already visited Karnataka, we want your real trip experience — food spots, hidden places, transport tips. Fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.</div>
+    <a href="https://ankith-m1006.github.io/prayana-form/index.html" class="redirect-btn">🏅 Open Founding Explorer Form →</a>
+    <br/><br/>
+    <div style="font-size:13px;color:var(--muted);cursor:pointer;" onclick="handleGate('no')">Or continue with this survey instead →</div>
+  </div>
+
+  <!-- ══ MAIN FORM ══ -->
+  <form id="mainForm" style="display:none;">
+
+    <!-- SECTION 1: WHO YOU ARE -->
+    <div class="form-section active" id="sec1">
+      <div class="section-card">
+        <div class="section-hd">
+          <div class="section-num">1</div>
+          <div>
+            <div class="section-ttl">Who You Are as a Traveller</div>
+            <div class="section-sub">Helps us understand who uses Prayana</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">Your Name <span class="req">*</span></div>
+          <input type="text" name="name" placeholder="First name is fine" required/>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <div class="fl">Phone / Email</div>
+            <div class="fhint">To notify you when Prayana launches</div>
+            <input type="text" name="contact" placeholder="+91 9XXXXXXXXX or email"/>
+          </div>
+          <div class="field">
+            <div class="fl">Where are you from?</div>
+            <select name="location">
+              <option value="">Select</option>
+              <option>Bengaluru</option>
+              <option>Mysuru</option>
+              <option>Hubballi / Dharwad</option>
+              <option>Mangaluru</option>
+              <option>Belagavi</option>
+              <option>Another Karnataka city</option>
+              <option>Another Indian state</option>
+              <option>Outside India</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">Age group</div>
+          <div class="scale-row">
+            <div class="sbtn" onclick="sel(this,'age')">Under 20</div>
+            <div class="sbtn" onclick="sel(this,'age')">20–25</div>
+            <div class="sbtn" onclick="sel(this,'age')">26–30</div>
+            <div class="sbtn" onclick="sel(this,'age')">31–40</div>
+            <div class="sbtn" onclick="sel(this,'age')">40+</div>
+          </div>
+          <input type="hidden" name="age" id="age_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">How often do you travel within India per year?</div>
+          <div class="scale-row">
+            <div class="sbtn" onclick="sel(this,'freq')">Once</div>
+            <div class="sbtn" onclick="sel(this,'freq')">2–3×</div>
+            <div class="sbtn" onclick="sel(this,'freq')">4–6×</div>
+            <div class="sbtn" onclick="sel(this,'freq')">Monthly</div>
+          </div>
+          <input type="hidden" name="travel_freq" id="freq_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What kind of traveller are you? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(pick all that apply)</span></div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">🗺 Explorer</div>
+            <div class="tag" onclick="tog(this)">🍽 Foodie</div>
+            <div class="tag" onclick="tog(this)">📸 Photographer</div>
+            <div class="tag" onclick="tog(this)">🏛 History buff</div>
+            <div class="tag" onclick="tog(this)">🌿 Nature lover</div>
+            <div class="tag" onclick="tog(this)">⚡ Weekend warrior</div>
+            <div class="tag" onclick="tog(this)">🎒 Backpacker</div>
+            <div class="tag" onclick="tog(this)">👨‍👩‍👧 Family traveller</div>
+            <div class="tag" onclick="tog(this)">🧘 Slow traveller</div>
+          </div>
+          <input type="hidden" name="traveller_type" id="traveller_type_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Who do you usually travel with?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'with')">Solo</div>
+            <div class="tag" onclick="selOne(this,'with')">Partner</div>
+            <div class="tag" onclick="selOne(this,'with')">Friend group</div>
+            <div class="tag" onclick="selOne(this,'with')">Family + kids</div>
+            <div class="tag" onclick="selOne(this,'with')">Family no kids</div>
+            <div class="tag" onclick="selOne(this,'with')">Changes every trip</div>
+          </div>
+          <input type="hidden" name="travel_with" id="with_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Typical trip budget per person</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'budget')">Under ₹2000</div>
+            <div class="tag" onclick="selOne(this,'budget')">₹2000–5000</div>
+            <div class="tag" onclick="selOne(this,'budget')">₹5000–10000</div>
+            <div class="tag" onclick="selOne(this,'budget')">₹10000–20000</div>
+            <div class="tag" onclick="selOne(this,'budget')">₹20000+</div>
+          </div>
+          <input type="hidden" name="budget" id="budget_val"/>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button type="button" class="btn-next" onclick="nextSection(1)">Next — Karnataka Knowledge →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: KARNATAKA -->
+    <div class="form-section" id="sec2">
+      <div class="section-card">
+        <div class="section-hd">
+          <div class="section-num">2</div>
+          <div>
+            <div class="section-ttl">Karnataka — What You Know</div>
+            <div class="section-sub">Helps us understand awareness and interest levels</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">Which Karnataka destinations have you heard of? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(select all)</span></div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this,'gr')">Hampi</div>
+            <div class="tag" onclick="tog(this,'gr')">Coorg</div>
+            <div class="tag" onclick="tog(this,'gr')">Gokarna</div>
+            <div class="tag" onclick="tog(this,'gr')">Mysuru</div>
+            <div class="tag" onclick="tog(this,'gr')">Chikmagalur</div>
+            <div class="tag" onclick="tog(this,'gr')">Kabini</div>
+            <div class="tag" onclick="tog(this,'gr')">Dandeli</div>
+            <div class="tag" onclick="tog(this,'gr')">Yana Caves</div>
+            <div class="tag" onclick="tog(this,'gr')">Agumbe</div>
+            <div class="tag" onclick="tog(this,'gr')">Sakleshpur</div>
+            <div class="tag" onclick="tog(this,'gr')">Badami</div>
+            <div class="tag" onclick="tog(this,'gr')">Udupi</div>
+            <div class="tag" onclick="tog(this,'gr')">Jog Falls</div>
+            <div class="tag" onclick="tog(this,'gr')">Banavasi</div>
+            <div class="tag" onclick="tog(this,'gr')">Nandi Hills</div>
+            <div class="tag" onclick="tog(this,'gr')">Nagarhole</div>
+            <div class="tag" onclick="tog(this,'gr')">Ramanagara</div>
+          </div>
+          <input type="hidden" name="heard_of" id="heard_of_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Which Karnataka region interests you most?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">🏛 North — Hampi, Badami, empires</div>
+            <div class="tag" onclick="tog(this)">🌊 Coast — Gokarna, Udupi, beaches</div>
+            <div class="tag" onclick="tog(this)">☕ Hills — Coorg, Chikmagalur, coffee</div>
+            <div class="tag" onclick="tog(this)">🐘 Wildlife — Kabini, Bandipur</div>
+            <div class="tag" onclick="tog(this)">🏯 South — Mysuru, palaces, culture</div>
+            <div class="tag" onclick="tog(this)">💧 Ghats — Jog Falls, Agumbe</div>
+            <div class="tag" onclick="tog(this)">🌿 Hidden — off-beat, unexplored</div>
+          </div>
+          <input type="hidden" name="region_interest" id="region_interest_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">When are you planning to visit Karnataka?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'when')">Next 1 month</div>
+            <div class="tag" onclick="selOne(this,'when')">2–3 months</div>
+            <div class="tag" onclick="selOne(this,'when')">This year</div>
+            <div class="tag" onclick="selOne(this,'when')">Not sure yet</div>
+            <div class="tag" onclick="selOne(this,'when')">Just exploring</div>
+          </div>
+          <input type="hidden" name="when_visiting" id="when_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Preferred season to visit</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'season')">❄️ Winter Oct–Feb</div>
+            <div class="tag" onclick="selOne(this,'season')">☀️ Summer Mar–May</div>
+            <div class="tag" onclick="selOne(this,'season')">🌧 Monsoon Jun–Sep</div>
+            <div class="tag" onclick="selOne(this,'season')">No preference</div>
+          </div>
+          <input type="hidden" name="season_pref" id="season_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Ideal Karnataka trip length</div>
+          <div class="scale-row">
+            <div class="sbtn" onclick="sel(this,'triplen')">1–2 days</div>
+            <div class="sbtn" onclick="sel(this,'triplen')">3–4 days</div>
+            <div class="sbtn" onclick="sel(this,'triplen')">5–7 days</div>
+            <div class="sbtn" onclick="sel(this,'triplen')">8–14 days</div>
+            <div class="sbtn" onclick="sel(this,'triplen')">15+ days</div>
+          </div>
+          <input type="hidden" name="trip_length" id="triplen_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What's on your Karnataka bucket list?</div>
+          <div class="fhint">Be specific — not just "Hampi" but what you want to do there</div>
+          <textarea name="bucket_list" rows="2" placeholder="e.g. Watch sunrise at Matanga Hill in Hampi · Trek to Kumara Parvatha · Try Pandi Curry in a Coorg homestay · See Jog Falls in full monsoon flow"></textarea>
+        </div>
+
+        <div class="field">
+          <div class="fl">One word that comes to mind when you think of Karnataka</div>
+          <input type="text" name="karnataka_word" placeholder="e.g. Ancient / Misty / Coffee / Unexplored..."/>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button type="button" class="btn-back" onclick="prevSection(2)">← Back</button>
+        <button type="button" class="btn-next" onclick="nextSection(2)">Next — How You Plan →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: PLANNING BEHAVIOUR -->
+    <div class="form-section" id="sec3">
+      <div class="section-card">
+        <div class="section-hd">
+          <div class="section-num">3</div>
+          <div>
+            <div class="section-ttl">How You Plan Trips</div>
+            <div class="section-sub">Tells us exactly where Prayana needs to show up</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">How do you currently plan trips? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(all that apply)</span></div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">🔍 Google search</div>
+            <div class="tag" onclick="tog(this)">📱 Instagram / Reels</div>
+            <div class="tag" onclick="tog(this)">▶️ YouTube</div>
+            <div class="tag" onclick="tog(this)">👥 Ask friends</div>
+            <div class="tag" onclick="tog(this)">✈️ MakeMyTrip / packages</div>
+            <div class="tag" onclick="tog(this)">📝 Travel blogs</div>
+            <div class="tag" onclick="tog(this)">💬 Reddit / Quora</div>
+            <div class="tag" onclick="tog(this)">🎲 Wing it on arrival</div>
+          </div>
+          <input type="hidden" name="planning_method" id="planning_method_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">How long does trip planning take you?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'plantime')">I just go — no planning</div>
+            <div class="tag" onclick="selOne(this,'plantime')">A few hours</div>
+            <div class="tag" onclick="selOne(this,'plantime')">1–3 days</div>
+            <div class="tag" onclick="selOne(this,'plantime')">A week+</div>
+          </div>
+          <input type="hidden" name="planning_time" id="plantime_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Most frustrating part of planning a Karnataka trip?</div>
+          <div class="fhint">Pick your top frustration</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'frustration')">Finding off-beat places</div>
+            <div class="tag" onclick="selOne(this,'frustration')">Building day-by-day schedule</div>
+            <div class="tag" onclick="selOne(this,'frustration')">Exact transport details</div>
+            <div class="tag" onclick="selOne(this,'frustration')">Realistic budget planning</div>
+            <div class="tag" onclick="selOne(this,'frustration')">Finding real local food</div>
+            <div class="tag" onclick="selOne(this,'frustration')">Not knowing if it's worth the trip</div>
+            <div class="tag" onclick="selOne(this,'frustration')">All of these honestly</div>
+          </div>
+          <input type="hidden" name="frustration" id="frustration_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Have you arrived somewhere and been disappointed vs expectation?</div>
+          <div class="scale-row">
+            <div class="sbtn" onclick="sel(this,'disappoint')">Yes, often</div>
+            <div class="sbtn" onclick="sel(this,'disappoint')">Once or twice</div>
+            <div class="sbtn" onclick="sel(this,'disappoint')">Rarely</div>
+            <div class="sbtn" onclick="sel(this,'disappoint')">Never</div>
+          </div>
+          <input type="hidden" name="disappointed" id="disappoint_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What specifically disappointed you? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(optional — be honest)</span></div>
+          <textarea name="disappointment_detail" rows="2" placeholder="e.g. Jog Falls was almost dry in April — nobody warned me · Hampi temple was closed on Monday — not mentioned anywhere · Beach was full of plastic waste unlike photos"></textarea>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button type="button" class="btn-back" onclick="prevSection(3)">← Back</button>
+        <button type="button" class="btn-next" onclick="nextSection(3)">Next — Perfect Itinerary →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 4: PERFECT ITINERARY -->
+    <div class="form-section" id="sec4">
+      <div class="section-card">
+        <div class="section-hd">
+          <div class="section-num">4</div>
+          <div>
+            <div class="section-ttl">The Perfect Itinerary</div>
+            <div class="section-sub">This directly shapes what Prayana includes in every AI itinerary</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">What should a perfect itinerary include? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(select all that matter to you)</span></div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this,'gr')">📅 Day-by-day schedule with timings</div>
+            <div class="tag" onclick="tog(this,'gr')">🚌 Exact bus / train with departure times</div>
+            <div class="tag" onclick="tog(this,'gr')">💰 Real budget breakdown in ₹</div>
+            <div class="tag" onclick="tog(this,'gr')">🍽 Hidden local food spots</div>
+            <div class="tag" onclick="tog(this,'gr')">📸 Best photo spots + timing</div>
+            <div class="tag" onclick="tog(this,'gr')">🎒 What to pack for that destination</div>
+            <div class="tag" onclick="tog(this,'gr')">⚠️ Safety + seasonal warnings</div>
+            <div class="tag" onclick="tog(this,'gr')">🗣 Local Kannada phrases</div>
+            <div class="tag" onclick="tog(this,'gr')">🏨 Specific hotel / homestay recommendations</div>
+            <div class="tag" onclick="tog(this,'gr')">📴 Offline access — no internet needed</div>
+            <div class="tag" onclick="tog(this,'gr')">🗺 Map with all stops</div>
+            <div class="tag" onclick="tog(this,'gr')">🌡 Weather for those days</div>
+          </div>
+          <input type="hidden" name="itinerary_needs" id="itinerary_needs_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Rank these — what matters most in an itinerary?</div>
+          <div class="fhint">Drag to reorder — 1 = most important</div>
+          <div class="rank-list" id="rankList">
+            <div class="rank-item" draggable="true"><div class="rank-num">1</div><div class="rank-txt">Accurate transport (bus/train details)</div><div class="rank-drag">⠿</div></div>
+            <div class="rank-item" draggable="true"><div class="rank-num">2</div><div class="rank-txt">Real local food spots</div><div class="rank-drag">⠿</div></div>
+            <div class="rank-item" draggable="true"><div class="rank-num">3</div><div class="rank-txt">Honest budget estimate</div><div class="rank-drag">⠿</div></div>
+            <div class="rank-item" draggable="true"><div class="rank-num">4</div><div class="rank-txt">Hidden / off-beat places</div><div class="rank-drag">⠿</div></div>
+            <div class="rank-item" draggable="true"><div class="rank-num">5</div><div class="rank-txt">Safety warnings</div><div class="rank-drag">⠿</div></div>
+            <div class="rank-item" draggable="true"><div class="rank-num">6</div><div class="rank-txt">Best photo spots</div><div class="rank-drag">⠿</div></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">What is most missing from travel apps today?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">No Karnataka-specific knowledge</div>
+            <div class="tag" onclick="tog(this)">Generic copy-paste itineraries</div>
+            <div class="tag" onclick="tog(this)">No real street food info</div>
+            <div class="tag" onclick="tog(this)">Unrealistic budgets</div>
+            <div class="tag" onclick="tog(this)">No seasonal warnings</div>
+            <div class="tag" onclick="tog(this)">Feels like ads not advice</div>
+            <div class="tag" onclick="tog(this)">No offline mode</div>
+            <div class="tag" onclick="tog(this)">Too complicated to use</div>
+          </div>
+          <input type="hidden" name="app_missing" id="app_missing_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Would you pay ₹9 for a complete AI Karnataka itinerary built around your exact preferences?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'pay9')">Yes immediately — that's nothing</div>
+            <div class="tag" onclick="selOne(this,'pay9')">Probably — depends on quality</div>
+            <div class="tag" onclick="selOne(this,'pay9')">Maybe — need to see a sample</div>
+            <div class="tag" onclick="selOne(this,'pay9')">No — prefer free options</div>
+          </div>
+          <input type="hidden" name="would_pay_9" id="pay9_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What would make you trust an AI-generated itinerary?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">Real local food recommendations</div>
+            <div class="tag" onclick="tog(this)">Accurate KSRTC / train details</div>
+            <div class="tag" onclick="tog(this)">Honest warnings (dry waterfalls etc)</div>
+            <div class="tag" onclick="tog(this)">Reviews from other travellers</div>
+            <div class="tag" onclick="tog(this)">Free sample before paying</div>
+            <div class="tag" onclick="tog(this)">Refund if not satisfied</div>
+            <div class="tag" onclick="tog(this)">Someone from Karnataka built it</div>
+          </div>
+          <input type="hidden" name="trust_factors" id="trust_factors_val"/>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button type="button" class="btn-back" onclick="prevSection(4)">← Back</button>
+        <button type="button" class="btn-next" onclick="nextSection(4)">Next — Karnataka Knowledge →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 5: FUN KARNATAKA QUIZ -->
+    <div class="form-section" id="sec5">
+      <div class="section-card">
+        <div class="section-hd">
+          <div class="section-num">5</div>
+          <div>
+            <div class="section-ttl">Karnataka Knowledge Check</div>
+            <div class="section-sub">Fun section — tells us how deep to go in Prayana's content</div>
+          </div>
+        </div>
+
+        <div class="info-box">🎯 No wrong answers here — this helps us calibrate how much local depth to include for different types of users.</div>
+
+        <div class="field">
+          <div class="fl">Have you heard of any of these Karnataka experiences?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this,'gr')">🚂 Sitting right-side on Sakleshpur train for valley views</div>
+            <div class="tag" onclick="tog(this,'gr')">🫓 Ragi Mudde at a dhaba in Davangere</div>
+            <div class="tag" onclick="tog(this,'gr')">🚣 Coracle boat at Hampi to Virupapur Gaddi</div>
+            <div class="tag" onclick="tog(this,'gr')">🎋 Bamboo shoot curry — only in Coorg monsoon</div>
+            <div class="tag" onclick="tog(this,'gr')">🥜 Unnamed groundnut cart outside Virupaksha temple</div>
+            <div class="tag" onclick="tog(this,'gr')">🌧 Agumbe — Cherrapunji of South India</div>
+            <div class="tag" onclick="tog(this,'gr')">🏛 Pattadakal — UNESCO with zero crowds</div>
+            <div class="tag" onclick="tog(this,'gr')">🌊 St Mary's Islands — hexagonal basalt rocks</div>
+          </div>
+          <input type="hidden" name="karnataka_knowledge" id="karnataka_knowledge_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Which Karnataka food have you tried? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(select all)</span></div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this,'yl')">Bisi Bele Bath</div>
+            <div class="tag" onclick="tog(this,'yl')">Akki Rotti</div>
+            <div class="tag" onclick="tog(this,'yl')">Davangere Benne Dosa</div>
+            <div class="tag" onclick="tog(this,'yl')">Ragi Mudde</div>
+            <div class="tag" onclick="tog(this,'yl')">Neer Dosa</div>
+            <div class="tag" onclick="tog(this,'yl')">Pandi Curry (Coorg)</div>
+            <div class="tag" onclick="tog(this,'yl')">Jolada Rotti</div>
+            <div class="tag" onclick="tog(this,'yl')">Udupi Sambar</div>
+            <div class="tag" onclick="tog(this,'yl')">Kadubu</div>
+            <div class="tag" onclick="tog(this,'yl')">None of these yet</div>
+          </div>
+          <input type="hidden" name="karnataka_food_tried" id="karnataka_food_tried_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Which Karnataka destination is on your bucket list?</div>
+          <input type="text" name="bucket_list_dest" placeholder="e.g. Yana Caves · Hampi at sunrise · Coorg coffee estate stay..."/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What do you associate most with Karnataka? <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--muted)">(pick all that come to mind)</span></div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">Hampi ruins</div>
+            <div class="tag" onclick="tog(this)">Coffee estates</div>
+            <div class="tag" onclick="tog(this)">Beaches</div>
+            <div class="tag" onclick="tog(this)">Temples</div>
+            <div class="tag" onclick="tog(this)">Wildlife</div>
+            <div class="tag" onclick="tog(this)">Bengaluru tech city</div>
+            <div class="tag" onclick="tog(this)">Mysore palace</div>
+            <div class="tag" onclick="tog(this)">Food — dosa, idli</div>
+            <div class="tag" onclick="tog(this)">Waterfalls</div>
+            <div class="tag" onclick="tog(this)">Western Ghats</div>
+            <div class="tag" onclick="tog(this)">Kannada culture</div>
+          </div>
+          <input type="hidden" name="karnataka_association" id="karnataka_association_val"/>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button type="button" class="btn-back" onclick="prevSection(5)">← Back</button>
+        <button type="button" class="btn-next" onclick="nextSection(5)">Next — About Prayana →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 6: ABOUT PRAYANA -->
+    <div class="form-section" id="sec6">
+      <div class="section-card">
+        <div class="section-hd">
+          <div class="section-num">6</div>
+          <div>
+            <div class="section-ttl">About Prayana</div>
+            <div class="section-sub">Last section — your honest opinion is more valuable than any market research</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">Would you use a Karnataka-only travel app instead of a general India app?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'kaonly')">Yes — depth over breadth</div>
+            <div class="tag" onclick="selOne(this,'kaonly')">Maybe — depends on features</div>
+            <div class="tag" onclick="selOne(this,'kaonly')">No — prefer all-India</div>
+          </div>
+          <input type="hidden" name="karnataka_only_app" id="kaonly_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What would make you download Prayana right now?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="tog(this)">Seeing a real itinerary sample</div>
+            <div class="tag" onclick="tog(this)">Friend recommendation</div>
+            <div class="tag" onclick="tog(this)">Instagram post / Reel</div>
+            <div class="tag" onclick="tog(this)">Play Store feature</div>
+            <div class="tag" onclick="tog(this)">Free first itinerary</div>
+            <div class="tag" onclick="tog(this)">Press coverage</div>
+            <div class="tag" onclick="tog(this)">YouTube review</div>
+          </div>
+          <input type="hidden" name="download_trigger" id="download_trigger_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Which feature would you use most?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'feature')">🤖 AI itinerary generator</div>
+            <div class="tag" onclick="selOne(this,'feature')">🍽 Hidden food spots map</div>
+            <div class="tag" onclick="selOne(this,'feature')">🗺 Fog-of-war district map</div>
+            <div class="tag" onclick="selOne(this,'feature')">🚂 Kanasu Daari dream routes</div>
+            <div class="tag" onclick="selOne(this,'feature')">💰 My Cash wallet + free trips</div>
+            <div class="tag" onclick="selOne(this,'feature')">📴 Offline itinerary access</div>
+          </div>
+          <input type="hidden" name="fav_feature" id="feature_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">What ONE thing would make Prayana the only Karnataka travel app you need?</div>
+          <div class="fhint">Your most honest answer — this directly shapes what we build</div>
+          <div class="char-wrap">
+            <textarea name="one_thing" rows="3" maxlength="500" oninput="cc(this,'cc1')" placeholder="e.g. Tell me exactly which bus to take and where to sit for the best views · Show me unnamed food spots that only locals know · Warn me when a waterfall is dry before I travel 6 hours..."></textarea>
+            <span class="cc" id="cc1">0/500</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="fl">How did you hear about Prayana?</div>
+          <div class="tag-row">
+            <div class="tag" onclick="selOne(this,'heard')">Friend / WhatsApp</div>
+            <div class="tag" onclick="selOne(this,'heard')">Instagram</div>
+            <div class="tag" onclick="selOne(this,'heard')">LinkedIn</div>
+            <div class="tag" onclick="selOne(this,'heard')">College / Campus</div>
+            <div class="tag" onclick="selOne(this,'heard')">Ankith told me directly</div>
+            <div class="tag" onclick="selOne(this,'heard')">Other</div>
+          </div>
+          <input type="hidden" name="heard_via" id="heard_val"/>
+        </div>
+
+        <div class="field">
+          <div class="fl">Anything else you want to tell us?</div>
+          <textarea name="other" rows="3" placeholder="Any feedback, feature idea, or anything about Karnataka travel that you think we should know..."></textarea>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button type="button" class="btn-back" onclick="prevSection(6)">← Back</button>
+        <button type="button" class="btn-submit" onclick="submitForm()">
+          <span>🗺</span> Submit & Join Prayana Community
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎉</div>
+    <h2 class="success-title">ಧನ್ಯವಾದಗಳು!</h2>
+    <p class="success-sub">Thank you for helping shape Prayana. Your answers go directly into what we build. Karnataka is lucky to have explorers like you.</p>
+    <div class="success-card">
+      <div style="font-size:24px;margin-bottom:8px;">🎁</div>
+      <div class="success-reward">Founding Contributor Badge</div>
+      <div class="success-reward-sub">Permanent badge on your Prayana profile when we launch · First itinerary free · Early access before Play Store</div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);">We'll reach out on WhatsApp when Prayana goes live. Watch your phone. 🔴</p>
+  </div>
+
+</div>
+
+<script>
+// ── GOOGLE SHEETS URL — paste yours here ──
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycby5mlIYPFYxX3QUFZ9059tsx6bR-fdBOXpqaahau-SL821zFnibNmxOk5TdAdlpxy2w/exec';
+
+// ── FOUNDING EXPLORER FORM URL ──
+const FOUNDING_URL = 'https://ankith-m1006.github.io/prayana-form/index.html'; // update to your actual URL
+
+// ── GATE ──
+function handleGate(ans) {
+  document.getElementById('gateScreen').style.display = 'none';
+  if (ans === 'yes') {
+    document.getElementById('redirectScreen').style.display = 'block';
+  } else {
+    document.getElementById('redirectScreen').style.display = 'none';
+    document.getElementById('mainForm').style.display = 'block';
+    document.getElementById('progressWrap').style.display = 'block';
+    initProgress();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+// ── PROGRESS ──
+const TOTAL_SECTIONS = 6;
+let currentSection = 1;
+
+function initProgress() {
+  const dots = document.getElementById('stepDots');
+  dots.innerHTML = '';
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i === 1 ? ' active' : '');
+    d.id = 'dot_' + i;
+    dots.appendChild(d);
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = Math.round(((currentSection - 1) / TOTAL_SECTIONS) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('stepLabel').textContent = `Section ${currentSection} of ${TOTAL_SECTIONS}`;
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    const d = document.getElementById('dot_' + i);
+    if (!d) continue;
+    d.className = 'step-dot';
+    if (i < currentSection) d.classList.add('done');
+    else if (i === currentSection) d.classList.add('active');
+  }
+  collectTagValues();
+}
+
+function nextSection(n) {
+  document.getElementById('sec' + n).classList.remove('active');
+  currentSection = n + 1;
+  document.getElementById('sec' + currentSection).classList.add('active');
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevSection(n) {
+  document.getElementById('sec' + n).classList.remove('active');
+  currentSection = n - 1;
+  document.getElementById('sec' + currentSection).classList.add('active');
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── TAG HELPERS ──
+function tog(el, color='') {
+  el.classList.toggle('on');
+  if (el.classList.contains('on') && color) el.classList.add(color);
+  else el.classList.remove('gr','yl');
+  collectTagValues();
+}
+
+function selOne(el, group) {
+  document.querySelectorAll(`[onclick="selOne(this,'${group}')"]`).forEach(b => b.classList.remove('on','gr','yl'));
+  el.classList.add('on');
+  const inp = document.getElementById(group + '_val');
+  if (inp) inp.value = el.textContent.trim();
+  collectTagValues();
+}
+
+function sel(el, group) {
+  el.closest('.scale-row').querySelectorAll('.sbtn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  const inp = document.getElementById(group + '_val');
+  if (inp) inp.value = el.textContent.trim();
+  collectTagValues();
+}
+
+function cc(el, id) {
+  document.getElementById(id).textContent = el.value.length + '/' + el.maxLength;
+}
+
+// Collect all multi-select tag values into hidden inputs
+function collectTagValues() {
+  const tagGroups = {
+    'traveller_type_val': '#sec1 .tag-row:nth-of-type(3)',
+    'heard_of_val': '#sec2 .tag-row:nth-of-type(1)',
+    'region_interest_val': '#sec2 .tag-row:nth-of-type(2)',
+    'planning_method_val': '#sec3 .tag-row:nth-of-type(1)',
+    'itinerary_needs_val': '#sec4 .tag-row:nth-of-type(1)',
+    'app_missing_val': '#sec4 .tag-row:nth-of-type(3)',
+    'trust_factors_val': '#sec4 .tag-row:nth-of-type(5)',
+    'karnataka_knowledge_val': '#sec5 .tag-row:nth-of-type(1)',
+    'karnataka_food_tried_val': '#sec5 .tag-row:nth-of-type(2)',
+    'karnataka_association_val': '#sec5 .tag-row:nth-of-type(4)',
+    'download_trigger_val': '#sec6 .tag-row:nth-of-type(2)',
+  };
+  // Collect all .on tags per section
+  document.querySelectorAll('.form-section').forEach(sec => {
+    const tagRows = sec.querySelectorAll('.tag-row');
+    tagRows.forEach(row => {
+      const onTags = Array.from(row.querySelectorAll('.tag.on')).map(t => t.textContent.trim());
+      // Find nearest hidden input
+      const nextEl = row.nextElementSibling;
+      if (nextEl && nextEl.tagName === 'INPUT' && nextEl.type === 'hidden') {
+        nextEl.value = onTags.join(' | ');
+      }
+    });
+  });
+}
+
+// ── DRAG TO RANK ──
+let dragSrc = null;
+document.addEventListener('DOMContentLoaded', () => {
+  initDrag();
+});
+
+function initDrag() {
+  const items = document.querySelectorAll('.rank-item');
+  items.forEach(item => {
+    item.addEventListener('dragstart', e => { dragSrc = item; item.style.opacity = '.4'; });
+    item.addEventListener('dragend', e => { item.style.opacity = '1'; updateRankNumbers(); });
+    item.addEventListener('dragover', e => { e.preventDefault(); });
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      if (dragSrc !== item) {
+        const list = document.getElementById('rankList');
+        const allItems = [...list.querySelectorAll('.rank-item')];
+        const srcIdx = allItems.indexOf(dragSrc);
+        const tgtIdx = allItems.indexOf(item);
+        if (srcIdx < tgtIdx) list.insertBefore(dragSrc, item.nextSibling);
+        else list.insertBefore(dragSrc, item);
+        updateRankNumbers();
+      }
+    });
+  });
+}
+
+function updateRankNumbers() {
+  document.querySelectorAll('#rankList .rank-item').forEach((item, i) => {
+    item.querySelector('.rank-num').textContent = i + 1;
+  });
+}
+
+function getRankOrder() {
+  return Array.from(document.querySelectorAll('#rankList .rank-item'))
+    .map(item => item.querySelector('.rank-txt').textContent.trim())
+    .join(' > ');
+}
+
+// ── SUBMIT ──
+async function submitForm() {
+
+  // Step 1: Collect ALL tag selections from every tag-row
+  document.querySelectorAll('.tag-row').forEach(row => {
+    const onTags = Array.from(row.querySelectorAll('.tag.on')).map(t => t.textContent.trim());
+    const next = row.nextElementSibling;
+    if (next && next.tagName === 'INPUT' && next.type === 'hidden') {
+      next.value = onTags.join(' | ');
+    }
+  });
+
+  // Step 2: Collect all form data
+  const fd = new FormData(document.getElementById('mainForm'));
+  const data = {
+    submittedAt: new Date().toISOString(),
+    formType: 'general_survey',
+    language: currentLang
+  };
+  fd.forEach((v, k) => { if (v && v.trim()) data[k] = v; });
+
+  // Step 3: Add rank order
+  data.itinerary_priority_rank = getRankOrder();
+
+  // Step 4: Loading state
+  const btn = document.querySelector('.btn-submit');
+  const origText = btn ? btn.innerHTML : '';
+  if (btn) { btn.innerHTML = 'Submitting...'; btn.disabled = true; }
+
+  console.log('Submitting data:', JSON.stringify(data, null, 2));
+
+  // Step 5: Send to Google Sheets
+  try {
+    const response = await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    console.log('Sent to Google Sheets');
+  } catch(err) {
+    console.error('Fetch error:', err);
+    // Re-enable button on error
+    if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+  }
+
+  // Step 6: Show success (no-cors means we cannot verify response, always show success)
+  setTimeout(() => {
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 800);
+}
+
+// ═══════════════════════════════════════
+// LANGUAGE SWITCHER — EN / ಕನ್ನಡ
+// ═══════════════════════════════════════
+const TRANSLATIONS = {
+  en: {
+    gateTitle: 'Have you visited Karnataka before?',
+    gateSub: 'Your answer takes you to the right form — both get you a free Prayana itinerary on launch.',
+    gateYes: 'Yes — I've been to Karnataka', gateYesSub: 'Share your real trip → become a Founding Explorer',
+    gateNo: 'No — but I want to visit', gateNoSub: 'Tell us what you're looking for',
+    gateMaybe: 'Not sure — just exploring', gateMaybeSub: 'That's perfect — we want to hear from you too',
+    redirectTitle: 'You qualify for the Founding Explorer program!',
+    redirectSub: 'Since you've visited Karnataka, fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.',
+    redirectBtn: '🏅 Open Founding Explorer Form →',
+    redirectSkip: 'Or continue with this survey instead →',
+    s1: 'Who You Are as a Traveller', s2: 'Karnataka — What You Know',
+    s3: 'How You Plan Trips', s4: 'The Perfect Itinerary',
+    s5: 'Karnataka Knowledge Check', s6: 'About Prayana',
+    submit: '🗺 Submit & Join Prayana Community',
+    successTitle: 'ಧನ್ಯವಾದಗಳು!',
+    successSub: 'Thank you for helping shape Prayana. Your answers go directly into what we build.',
+  },
+  kn: {
+    gateTitle: 'ನೀವು ಮೊದಲು ಕರ್ನಾಟಕಕ್ಕೆ ಭೇಟಿ ನೀಡಿದ್ದೀರಾ?',
+    gateSub: 'ನಿಮ್ಮ ಉತ್ತರ ನಿಮ್ಮನ್ನು ಸರಿಯಾದ ಫಾರ್ಮ್‌ಗೆ ಕರೆದೊಯ್ಯುತ್ತದೆ — ಎರಡೂ ಉಚಿತ ಇಟಿನರರಿ ನೀಡುತ್ತವೆ.',
+    gateYes: 'ಹೌದು — ನಾನು ಕರ್ನಾಟಕಕ್ಕೆ ಹೋಗಿದ್ದೇನೆ', gateYesSub: 'ನಿಮ್ಮ ಪ್ರಯಾಣ ಹಂಚಿಕೊಳ್ಳಿ → Founding Explorer ಆಗಿ',
+    gateNo: 'ಇಲ್ಲ — ಆದರೆ ಭೇಟಿ ನೀಡಲು ಬಯಸುತ್ತೇನೆ', gateNoSub: 'ನೀವು ಏನನ್ನು ಹುಡುಕುತ್ತಿದ್ದೀರಿ ಹೇಳಿ',
+    gateMaybe: 'ಖಚಿತವಿಲ್ಲ — ಕೇವಲ ಅನ್ವೇಷಿಸುತ್ತಿದ್ದೇನೆ', gateMaybeSub: 'ಅದು ಪರ್ಫೆಕ್ಟ್ — ನಾವು ನಿಮ್ಮಿಂದ ಕೇಳಲು ಬಯಸುತ್ತೇವೆ',
+    redirectTitle: 'ನೀವು Founding Explorer ಪ್ರೋಗ್ರಾಮ್‌ಗೆ ಅರ್ಹರಾಗಿದ್ದೀರಿ!',
+    redirectSub: 'ನೀವು ಕರ್ನಾಟಕಕ್ಕೆ ಭೇಟಿ ನೀಡಿದ್ದರಿಂದ, Founding Explorer ಫಾರ್ಮ್ ಭರ್ತಿ ಮಾಡಿ.',
+    redirectBtn: '🏅 Founding Explorer ಫಾರ್ಮ್ ತೆರೆಯಿರಿ →',
+    redirectSkip: 'ಅಥವಾ ಈ ಸಮೀಕ್ಷೆ ಮುಂದುವರಿಸಿ →',
+    s1: 'ನೀವು ಯಾವ ರೀತಿಯ ಪ್ರಯಾಣಿಕ?', s2: 'ಕರ್ನಾಟಕ — ನಿಮಗೆ ಏನು ಗೊತ್ತು',
+    s3: 'ನೀವು ಪ್ರಯಾಣ ಹೇಗೆ ಯೋಜಿಸುತ್ತೀರಿ', s4: 'ಆದರ್ಶ ಇಟಿನರರಿ',
+    s5: 'ಕರ್ನಾಟಕ ಜ್ಞಾನ ಪರೀಕ್ಷೆ', s6: 'Prayana ಬಗ್ಗೆ',
+    submit: '🗺 ಸಲ್ಲಿಸಿ ಮತ್ತು Prayana ಸೇರಿ',
+    successTitle: 'ಧನ್ಯವಾದಗಳು!',
+    successSub: 'Prayana ರೂಪಿಸಲು ಸಹಾಯ ಮಾಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದ. ನಿಮ್ಮ ಉತ್ತರಗಳು ನಾವು ನಿರ್ಮಿಸುವದರಲ್ಲಿ ನೇರವಾಗಿ ಹೋಗುತ್ತವೆ.',
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+  const isKN = lang === 'kn';
+  const knFont = 'font-family: Noto Serif Kannada, serif;';
+
+  document.getElementById('btnEN').style.background = isKN ? 'transparent' : '#C8102E';
+  document.getElementById('btnEN').style.color = isKN ? '#7A6A50' : 'white';
+  document.getElementById('btnKN').style.background = isKN ? '#C8102E' : 'transparent';
+  document.getElementById('btnKN').style.color = isKN ? 'white' : '#7A6A50';
+
+  // Gate screen
+  const gt = document.querySelector('#gateScreen .gate-title');
+  const gs = document.querySelector('#gateScreen .gate-sub');
+  const opts = document.querySelectorAll('.gate-opt');
+  if(gt) { gt.textContent = t.gateTitle; gt.style = isKN ? knFont : ''; }
+  if(gs) { gs.textContent = t.gateSub; gs.style = isKN ? knFont : ''; }
+  if(opts[0]) { opts[0].querySelector('.gate-opt-text').textContent = t.gateYes; opts[0].querySelector('.gate-opt-text').style = isKN ? knFont : ''; opts[0].querySelector('.gate-opt-sub').textContent = t.gateYesSub; }
+  if(opts[1]) { opts[1].querySelector('.gate-opt-text').textContent = t.gateNo; opts[1].querySelector('.gate-opt-sub').textContent = t.gateNoSub; }
+  if(opts[2]) { opts[2].querySelector('.gate-opt-text').textContent = t.gateMaybe; opts[2].querySelector('.gate-opt-sub').textContent = t.gateMaybeSub; }
+
+  // Redirect
+  const rt = document.querySelector('#redirectScreen .redirect-title');
+  const rs = document.querySelector('#redirectScreen .redirect-sub');
+  const rb = document.querySelector('#redirectScreen .redirect-btn span, #redirectScreen .redirect-btn');
+  const rsk = document.querySelector('#redirectScreen .redirect-skip');
+  if(rt){ rt.textContent = t.redirectTitle; rt.style = isKN ? knFont : ''; }
+  if(rs){ rs.textContent = t.redirectSub; rs.style = isKN ? knFont : ''; }
+  if(rsk){ rsk.textContent = t.redirectSkip; rsk.style = isKN ? knFont : ''; }
+
+  // Section titles
+  const secTitles = document.querySelectorAll('.section-ttl');
+  const keys = ['s1','s2','s3','s4','s5','s6'];
+  secTitles.forEach((el,i) => { if(keys[i] && t[keys[i]]) { el.textContent = t[keys[i]]; el.style = isKN ? knFont : ''; }});
+
+  // Submit button
+  const submitBtn = document.querySelector('.btn-submit');
+  if(submitBtn){ submitBtn.innerHTML = t.submit; submitBtn.style = isKN ? knFont : ''; }
+
+  // Success screen
+  const st = document.querySelector('#successScreen .success-title');
+  const ss = document.querySelector('#successScreen .success-sub');
+  if(st){ st.textContent = t.successTitle; st.style = isKN ? knFont+'font-size:26px;' : ''; }
+  if(ss){ ss.textContent = t.successSub; ss.style = isKN ? knFont : ''; }
+}
+</script>
+</body>
+</html>
