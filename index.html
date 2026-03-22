@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Prayana General Survey v4 - 2026-03-22 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -181,7 +182,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
 <div class="main">
 
   <!-- PROGRESS -->
-  <div class="progress-wrap" id="progressWrap" style="display:none;">
+  <div class="progress-wrap" id="progressWrap" style="display:block;">
     <div class="progress-top">
       <div class="progress-label" id="stepLabel">Section 1 of 6</div>
       <div class="progress-pct" id="progressPct">0%</div>
@@ -190,49 +191,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
     <div class="step-dots" id="stepDots"></div>
   </div>
 
-  <!-- ══ GATE SCREEN ══ -->
-  <div id="gateScreen">
-    <div class="gate-screen">
-      <div class="gate-title">Have you visited Karnataka before?</div>
-      <div class="gate-sub">Your answer takes you to the right form — both are quick and both get you a free Prayana itinerary when we launch.</div>
-      <div class="gate-options">
-        <div class="gate-opt" onclick="handleGate('yes')">
-          <div class="gate-opt-icon">✅</div>
-          <div>
-            <div class="gate-opt-text">Yes — I've been to Karnataka</div>
-            <div class="gate-opt-sub">Share your real trip experience → become a Founding Explorer</div>
-          </div>
-        </div>
-        <div class="gate-opt" onclick="handleGate('no')">
-          <div class="gate-opt-icon">🗺</div>
-          <div>
-            <div class="gate-opt-text">No — but I want to / planning to</div>
-            <div class="gate-opt-sub">Tell us what you're looking for → help shape what we build</div>
-          </div>
-        </div>
-        <div class="gate-opt" onclick="handleGate('no')">
-          <div class="gate-opt-icon">🤔</div>
-          <div>
-            <div class="gate-opt-text">Not sure — just exploring</div>
-            <div class="gate-opt-sub">That's perfect — we want to hear from you too</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ REDIRECT TO FOUNDING EXPLORER ══ -->
-  <div id="redirectScreen" class="redirect-screen">
-    <div class="redirect-icon">🏅</div>
-    <div class="redirect-title">You qualify for the Founding Explorer program!</div>
-    <div class="redirect-sub">Since you've already visited Karnataka, we want your real trip experience — food spots, hidden places, transport tips. Fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.</div>
-    <a href="https://ankith-m1006.github.io/prayana-form/index.html" class="redirect-btn">🏅 Open Founding Explorer Form →</a>
-    <br/><br/>
-    <div style="font-size:13px;color:var(--muted);cursor:pointer;" onclick="handleGate('no')">Or continue with this survey instead →</div>
-  </div>
-
   <!-- ══ MAIN FORM ══ -->
-  <form id="mainForm" style="display:none;">
+  <form id="mainForm" style="display:block;">
 
     <!-- SECTION 1: WHO YOU ARE -->
     <div class="form-section active" id="sec1">
@@ -259,15 +219,44 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
           <div class="field">
             <div class="fl">Where are you from?</div>
             <select name="location">
-              <option value="">Select</option>
-              <option>Bengaluru</option>
-              <option>Mysuru</option>
-              <option>Hubballi / Dharwad</option>
-              <option>Mangaluru</option>
-              <option>Belagavi</option>
-              <option>Another Karnataka city</option>
+              <option value="">Select your district / location</option>
+              <optgroup label="Karnataka Districts">
+              <option>Bagalkot</option>
+              <option>Ballari (Bellary)</option>
+              <option>Belagavi (Belgaum)</option>
+              <option>Bengaluru Urban</option>
+              <option>Bengaluru Rural</option>
+              <option>Bidar</option>
+              <option>Chamarajanagar</option>
+              <option>Chikkaballapura</option>
+              <option>Chikkamagaluru</option>
+              <option>Chitradurga</option>
+              <option>Dakshina Kannada</option>
+              <option>Davangere</option>
+              <option>Dharwad</option>
+              <option>Gadag</option>
+              <option>Hassan</option>
+              <option>Haveri</option>
+              <option>Kalaburagi (Gulbarga)</option>
+              <option>Kodagu (Coorg)</option>
+              <option>Kolar</option>
+              <option>Koppal</option>
+              <option>Mandya</option>
+              <option>Mysuru (Mysore)</option>
+              <option>Raichur</option>
+              <option>Ramanagara</option>
+              <option>Shivamogga (Shimoga)</option>
+              <option>Tumakuru (Tumkur)</option>
+              <option>Udupi</option>
+              <option>Uttara Kannada</option>
+              <option>Vijayanagara</option>
+              <option>Vijayapura (Bijapur)</option>
+              <option>Yadgir</option>
+              </optgroup>
+              <optgroup label="Outside Karnataka">
               <option>Another Indian state</option>
               <option>Outside India</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -775,7 +764,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
       <div class="success-reward">Founding Contributor Badge</div>
       <div class="success-reward-sub">Permanent badge on your Prayana profile when we launch · First itinerary free · Early access before Play Store</div>
     </div>
-    <p style="font-size:13px;color:var(--muted);">We'll reach out on WhatsApp when Prayana goes live. Watch your phone. 🔴</p>
+    <p style="font-size:13px;color:var(--muted);">We will reach out on WhatsApp when Prayana goes live. Watch your phone. 🔴</p>
   </div>
 
 </div>
@@ -785,21 +774,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--red);background:#fff;
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycby5mlIYPFYxX3QUFZ9059tsx6bR-fdBOXpqaahau-SL821zFnibNmxOk5TdAdlpxy2w/exec';
 
 // ── FOUNDING EXPLORER FORM URL ──
-const FOUNDING_URL = 'https://ankith-m1006.github.io/prayana-form/index.html'; // update to your actual URL
-
-// ── GATE ──
-function handleGate(ans) {
-  document.getElementById('gateScreen').style.display = 'none';
-  if (ans === 'yes') {
-    document.getElementById('redirectScreen').style.display = 'block';
-  } else {
-    document.getElementById('redirectScreen').style.display = 'none';
-    document.getElementById('mainForm').style.display = 'block';
-    document.getElementById('progressWrap').style.display = 'block';
-    initProgress();
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-}
+const FOUNDING_URL = 'https://ankith-m1006.github.io/prayana-form/index.html';
 
 // ── PROGRESS ──
 const TOTAL_SECTIONS = 6;
@@ -1004,92 +979,475 @@ async function submitForm() {
 // ═══════════════════════════════════════
 const TRANSLATIONS = {
   en: {
-    gateTitle: 'Have you visited Karnataka before?',
-    gateSub: 'Your answer takes you to the right form — both get you a free Prayana itinerary on launch.',
-    gateYes: 'Yes — I have been to Karnataka', gateYesSub: 'Share your real trip and become a Founding Explorer',
-    gateNo: 'No — but I want to visit', gateNoSub: 'Tell us what you are looking for',
-    gateMaybe: 'Not sure — just exploring', gateMaybeSub: 'That is perfect — we want to hear from you too',
-    redirectTitle: 'You qualify for the Founding Explorer program!',
-    redirectSub: 'Since you have visited Karnataka, fill the Founding Explorer form and get a permanent gold badge + 2 free itineraries.',
-    redirectBtn: '🏅 Open Founding Explorer Form →',
-    redirectSkip: 'Or continue with this survey instead →',
-    s1: 'Who You Are as a Traveller', s2: 'Karnataka — What You Know',
-    s3: 'How You Plan Trips', s4: 'The Perfect Itinerary',
-    s5: 'Karnataka Knowledge Check', s6: 'About Prayana',
-    submit: '🗺 Submit & Join Prayana Community',
+    // Hero
+    heroEyebrow: '🗺 Community Survey',
+    heroTitle: "Help us build Karnataka's <em>best travel app.</em>",
+    heroDesc: '4 minutes. 25 questions. Your answers directly shape what Prayana builds next — and you get early access + a Founding Contributor badge for helping.',
+    statMin: 'Minutes', statQ: 'Questions', statGift: 'Free itinerary',
+    // Progress
+    stepLabel: 'Section',
+    stepOf: 'of',
+    // Section titles
+    s1title: 'Who You Are as a Traveller', s1sub: 'Helps us understand who uses Prayana',
+    s2title: 'Karnataka — What You Know', s2sub: 'Helps us understand awareness and interest levels',
+    s3title: 'How You Plan Trips', s3sub: 'Tells us exactly where Prayana needs to show up',
+    s4title: 'The Perfect Itinerary', s4sub: 'This directly shapes what Prayana includes in every AI itinerary',
+    s5title: 'Karnataka Knowledge Check', s5sub: "Fun section — tells us how deep to go in Prayana's content",
+    s6title: 'About Prayana', s6sub: 'Last section — your honest opinion is more valuable than any market research',
+    // Field labels
+    lName: 'Your Name', lContact: 'Phone / Email', lLocation: 'Where are you from?',
+    lAge: 'Age group', lFreq: 'How often do you travel within India per year?',
+    lTravellerType: 'What kind of traveller are you?',
+    lWith: 'Who do you usually travel with?', lBudget: 'Typical trip budget per person',
+    lHeardOf: 'Which Karnataka destinations have you heard of?',
+    lRegion: 'Which Karnataka region interests you most?',
+    lWhen: 'When are you planning to visit Karnataka?',
+    lSeason: 'Preferred season to visit', lTripLen: 'Ideal Karnataka trip length',
+    lBucket: "What's on your Karnataka bucket list?",
+    lKAWord: 'One word that comes to mind when you think of Karnataka',
+    lPlanMethod: 'How do you currently plan trips?',
+    lPlanTime: 'How long does trip planning take you?',
+    lFrustration: 'Most frustrating part of planning a Karnataka trip?',
+    lDisappoint: 'Have you arrived somewhere and been disappointed?',
+    lDisappointDetail: 'What specifically disappointed you?',
+    lItinNeeds: 'What should a perfect itinerary include?',
+    lRank: 'Rank these — what matters most in an itinerary?',
+    lMissing: 'What is most missing from travel apps today?',
+    lPay9: 'Would you pay 9 rupees for a complete AI Karnataka itinerary?',
+    lTrust: 'What would make you trust an AI-generated itinerary?',
+    lKAExp: 'Have you heard of any of these Karnataka experiences?',
+    lFoodTried: 'Which Karnataka food have you tried?',
+    lBucketDest: 'Which Karnataka destination is on your bucket list?',
+    lAssoc: 'What do you associate most with Karnataka?',
+    lKAOnly: 'Would you use a Karnataka-only travel app instead of a general India app?',
+    lDownload: 'What would make you download Prayana right now?',
+    lFavFeature: 'Which feature would you use most?',
+    lOneThing: 'What ONE thing would make Prayana the only Karnataka travel app you need?',
+    lHeard: 'How did you hear about Prayana?', lOther: 'Anything else you want to tell us?',
+    // Hints
+    hContact: 'To notify you when Prayana launches',
+    hBucket: 'Be specific — not just Hampi but what you want to do there',
+    hFrustration: 'Pick your top frustration',
+    hRank: 'Drag to reorder — 1 = most important',
+    hOneThing: 'Your most honest answer — this directly shapes what we build',
+    hDisappoint: 'optional — be honest',
+    // Info box
+    infoBox: '🎯 No wrong answers here — this helps us calibrate how much local depth to include for different types of users.',
+    // Buttons
+    btn1next: 'Next — Karnataka Knowledge →',
+    btn2back: '← Back', btn2next: 'Next — How You Plan →',
+    btn3back: '← Back', btn3next: 'Next — Perfect Itinerary →',
+    btn4back: '← Back', btn4next: 'Next — Karnataka Knowledge →',
+    btn5back: '← Back', btn5next: 'Next — About Prayana →',
+    btn6back: '← Back', submit: '🗺 Submit & Join Prayana Community',
+    // Placeholders
+    phName: 'First name is fine', phContact: '+91 9XXXXXXXXX or email',
+    phBucket: 'e.g. Watch sunrise at Matanga Hill in Hampi · Trek Kumara Parvatha · Pandi Curry in a Coorg homestay',
+    phKAWord: 'e.g. Ancient / Misty / Coffee / Unexplored...',
+    phDisappoint: 'e.g. Jog Falls was almost dry — nobody warned me · Temple closed on Monday',
+    phBucketDest: 'e.g. Yana Caves · Hampi at sunrise · Coorg coffee estate...',
+    phOneThing: 'e.g. Tell me exactly which bus and where to sit for best views...',
+    phOther: 'Any feedback, feature idea, or anything about Karnataka travel...',
+    // Rank items
+    rank1: 'Accurate transport (bus/train details)', rank2: 'Real local food spots',
+    rank3: 'Honest budget estimate', rank4: 'Hidden / off-beat places',
+    rank5: 'Safety warnings', rank6: 'Best photo spots',
+    // Success
     successTitle: 'ಧನ್ಯವಾದಗಳು!',
-    successSub: 'Thank you for helping shape Prayana. Your answers go directly into what we build.',
+    successSub: 'Thank you for helping shape Prayana. Your answers go directly into what we build. Karnataka is lucky to have explorers like you.',
+    successReward: 'Founding Contributor Badge',
+    successRewardSub: 'Permanent badge on your Prayana profile when we launch · First itinerary free · Early access before Play Store',
+    successNote: 'We will reach out on WhatsApp when Prayana goes live. Watch your phone. 🔴',
   },
   kn: {
-    gateTitle: 'ನೀವು ಮೊದಲು ಕರ್ನಾಟಕಕ್ಕೆ ಭೇಟಿ ನೀಡಿದ್ದೀರಾ?',
-    gateSub: 'ನಿಮ್ಮ ಉತ್ತರ ನಿಮ್ಮನ್ನು ಸರಿಯಾದ ಫಾರ್ಮ್‌ಗೆ ಕರೆದೊಯ್ಯುತ್ತದೆ — ಎರಡೂ ಉಚಿತ ಇಟಿನರರಿ ನೀಡುತ್ತವೆ.',
-    gateYes: 'ಹೌದು — ನಾನು ಕರ್ನಾಟಕಕ್ಕೆ ಹೋಗಿದ್ದೇನೆ', gateYesSub: 'ನಿಮ್ಮ ಪ್ರಯಾಣ ಹಂಚಿಕೊಳ್ಳಿ → Founding Explorer ಆಗಿ',
-    gateNo: 'ಇಲ್ಲ — ಆದರೆ ಭೇಟಿ ನೀಡಲು ಬಯಸುತ್ತೇನೆ', gateNoSub: 'ನೀವು ಏನನ್ನು ಹುಡುಕುತ್ತಿದ್ದೀರಿ ಹೇಳಿ',
-    gateMaybe: 'ಖಚಿತವಿಲ್ಲ — ಕೇವಲ ಅನ್ವೇಷಿಸುತ್ತಿದ್ದೇನೆ', gateMaybeSub: 'ಅದು ಪರ್ಫೆಕ್ಟ್ — ನಾವು ನಿಮ್ಮಿಂದ ಕೇಳಲು ಬಯಸುತ್ತೇವೆ',
-    redirectTitle: 'ನೀವು Founding Explorer ಪ್ರೋಗ್ರಾಮ್‌ಗೆ ಅರ್ಹರಾಗಿದ್ದೀರಿ!',
-    redirectSub: 'ನೀವು ಕರ್ನಾಟಕಕ್ಕೆ ಭೇಟಿ ನೀಡಿದ್ದರಿಂದ, Founding Explorer ಫಾರ್ಮ್ ಭರ್ತಿ ಮಾಡಿ.',
-    redirectBtn: '🏅 Founding Explorer ಫಾರ್ಮ್ ತೆರೆಯಿರಿ →',
-    redirectSkip: 'ಅಥವಾ ಈ ಸಮೀಕ್ಷೆ ಮುಂದುವರಿಸಿ →',
-    s1: 'ನೀವು ಯಾವ ರೀತಿಯ ಪ್ರಯಾಣಿಕ?', s2: 'ಕರ್ನಾಟಕ — ನಿಮಗೆ ಏನು ಗೊತ್ತು',
-    s3: 'ನೀವು ಪ್ರಯಾಣ ಹೇಗೆ ಯೋಜಿಸುತ್ತೀರಿ', s4: 'ಆದರ್ಶ ಇಟಿನರರಿ',
-    s5: 'ಕರ್ನಾಟಕ ಜ್ಞಾನ ಪರೀಕ್ಷೆ', s6: 'Prayana ಬಗ್ಗೆ',
-    submit: '🗺 ಸಲ್ಲಿಸಿ ಮತ್ತು Prayana ಸೇರಿ',
+    // Hero
+    heroEyebrow: '🗺 ಸಮುದಾಯ ಸಮೀಕ್ಷೆ',
+    heroTitle: 'ಕರ್ನಾಟಕದ <em>ಅತ್ಯುತ್ತಮ ಪ್ರಯಾಣ ಆ್ಯಪ್</em> ನಿರ್ಮಿಸಲು ಸಹಾಯ ಮಾಡಿ.',
+    heroDesc: '4 ನಿಮಿಷ. 25 ಪ್ರಶ್ನೆಗಳು. ನಿಮ್ಮ ಉತ್ತರಗಳು Prayana ಅನ್ನು ನೇರವಾಗಿ ರೂಪಿಸುತ್ತವೆ.',
+    statMin: 'ನಿಮಿಷಗಳು', statQ: 'ಪ್ರಶ್ನೆಗಳು', statGift: 'ಉಚಿತ ಇಟಿನರರಿ',
+    stepLabel: 'ವಿಭಾಗ', stepOf: 'ರಲ್ಲಿ',
+    // Section titles
+    s1title: 'ನೀವು ಯಾವ ರೀತಿಯ ಪ್ರಯಾಣಿಕ?', s1sub: 'Prayana ಅನ್ನು ಯಾರು ಬಳಸುತ್ತಾರೆ ಎಂಬುದನ್ನು ಅರ್ಥ ಮಾಡಿಕೊಳ್ಳಲು',
+    s2title: 'ಕರ್ನಾಟಕ — ನಿಮಗೆ ಏನು ಗೊತ್ತು', s2sub: 'ಜಾಗೃತಿ ಮತ್ತು ಆಸಕ್ತಿ ಮಟ್ಟ ಅರ್ಥ ಮಾಡಿಕೊಳ್ಳಲು',
+    s3title: 'ನೀವು ಪ್ರಯಾಣ ಹೇಗೆ ಯೋಜಿಸುತ್ತೀರಿ', s3sub: 'Prayana ಎಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳಬೇಕೆಂದು ನಿಖರವಾಗಿ ತಿಳಿಸುತ್ತದೆ',
+    s4title: 'ಆದರ್ಶ ಇಟಿನರರಿ', s4sub: 'Prayana ನ ಪ್ರತಿ AI ಇಟಿನರರಿಯಲ್ಲಿ ಏನನ್ನು ಸೇರಿಸಬೇಕೆಂದು ನೇರವಾಗಿ ರೂಪಿಸುತ್ತದೆ',
+    s5title: 'ಕರ್ನಾಟಕ ಜ್ಞಾನ ಪರೀಕ್ಷೆ', s5sub: 'ಮೋಜಿನ ವಿಭಾಗ — ವಿಷಯ ಆಳವನ್ನು ಅಳೆಯಲು',
+    s6title: 'Prayana ಬಗ್ಗೆ', s6sub: 'ಕೊನೆಯ ವಿಭಾಗ — ನಿಮ್ಮ ಪ್ರಾಮಾಣಿಕ ಅಭಿಪ್ರಾಯ ಅತ್ಯಂತ ಮಹತ್ವದ್ದು',
+    // Field labels
+    lName: 'ನಿಮ್ಮ ಹೆಸರು', lContact: 'ಫೋನ್ / ಇಮೇಲ್', lLocation: 'ನೀವು ಎಲ್ಲಿಂದ?',
+    lAge: 'ವಯಸ್ಸಿನ ಗುಂಪು', lFreq: 'ನೀವು ವರ್ಷಕ್ಕೆ ಎಷ್ಟು ಬಾರಿ ಭಾರತದಲ್ಲಿ ಪ್ರಯಾಣ ಮಾಡುತ್ತೀರಿ?',
+    lTravellerType: 'ನೀವು ಯಾವ ರೀತಿಯ ಪ್ರಯಾಣಿಕ?',
+    lWith: 'ನೀವು ಸಾಮಾನ್ಯವಾಗಿ ಯಾರೊಂದಿಗೆ ಪ್ರಯಾಣಿಸುತ್ತೀರಿ?', lBudget: 'ಒಬ್ಬ ವ್ಯಕ್ತಿಗೆ ಸಾಮಾನ್ಯ ಪ್ರಯಾಣ ಬಜೆಟ್',
+    lHeardOf: 'ನೀವು ಯಾವ ಕರ್ನಾಟಕ ತಾಣಗಳ ಬಗ್ಗೆ ಕೇಳಿದ್ದೀರಿ?',
+    lRegion: 'ಯಾವ ಕರ್ನಾಟಕ ಪ್ರದೇಶ ನಿಮಗೆ ಹೆಚ್ಚು ಆಸಕ್ತಿ?',
+    lWhen: 'ನೀವು ಕರ್ನಾಟಕಕ್ಕೆ ಯಾವಾಗ ಭೇಟಿ ನೀಡಲು ಯೋಜಿಸುತ್ತಿದ್ದೀರಿ?',
+    lSeason: 'ಆದ್ಯತೆಯ ಋತು', lTripLen: 'ಆದರ್ಶ ಕರ್ನಾಟಕ ಪ್ರಯಾಣ ಅವಧಿ',
+    lBucket: 'ನಿಮ್ಮ ಕರ್ನಾಟಕ ಬಕೆಟ್ ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಏನಿದೆ?',
+    lKAWord: 'ಕರ್ನಾಟಕ ಎಂದಾಗ ನಿಮ್ಮ ಮನಸ್ಸಿಗೆ ಬರುವ ಒಂದು ಪದ',
+    lPlanMethod: 'ನೀವು ಪ್ರಸ್ತುತ ಪ್ರಯಾಣ ಹೇಗೆ ಯೋಜಿಸುತ್ತೀರಿ?',
+    lPlanTime: 'ಪ್ರಯಾಣ ಯೋಜನೆಗೆ ಎಷ್ಟು ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ?',
+    lFrustration: 'ಕರ್ನಾಟಕ ಪ್ರಯಾಣ ಯೋಜಿಸುವಾಗ ಅತ್ಯಂತ ಕಿರಿಕಿರಿ ಯಾವುದು?',
+    lDisappoint: 'ಎಲ್ಲಿಗಾದರೂ ಹೋಗಿ ನಿರಾಶೆ ಅನುಭವಿಸಿದ್ದೀರಾ?',
+    lDisappointDetail: 'ಏನು ನಿರ್ದಿಷ್ಟವಾಗಿ ನಿರಾಶೆ ಮಾಡಿತು?',
+    lItinNeeds: 'ಆದರ್ಶ ಇಟಿನರರಿಯಲ್ಲಿ ಏನು ಇರಬೇಕು?',
+    lRank: 'ಆದ್ಯತೆ ಕ್ರಮದಲ್ಲಿ ಜೋಡಿಸಿ — ಯಾವುದು ಅತ್ಯಂತ ಮುಖ್ಯ?',
+    lMissing: 'ಇಂದಿನ ಪ್ರಯಾಣ ಆ್ಯಪ್‌ಗಳಲ್ಲಿ ಅತ್ಯಂತ ಕೊರತೆ ಏನು?',
+    lPay9: 'ಸಂಪೂರ್ಣ AI ಕರ್ನಾಟಕ ಇಟಿನರರಿಗೆ ₹9 ಪಾವತಿಸುತ್ತೀರಾ?',
+    lTrust: 'AI ಇಟಿನರರಿಯನ್ನು ನಂಬಲು ಯಾವುದು ಮಾಡುತ್ತದೆ?',
+    lKAExp: 'ಈ ಕರ್ನಾಟಕ ಅನುಭವಗಳ ಬಗ್ಗೆ ಕೇಳಿದ್ದೀರಾ?',
+    lFoodTried: 'ನೀವು ಯಾವ ಕರ್ನಾಟಕ ಆಹಾರ ತಿಂದಿದ್ದೀರಿ?',
+    lBucketDest: 'ನಿಮ್ಮ ಬಕೆಟ್ ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಯಾವ ಕರ್ನಾಟಕ ತಾಣ ಇದೆ?',
+    lAssoc: 'ಕರ್ನಾಟಕ ಎಂದಾಗ ನಿಮಗೆ ಯಾವುದು ಹೆಚ್ಚು ನೆನಪಾಗುತ್ತದೆ?',
+    lKAOnly: 'ಸಾಮಾನ್ಯ ಭಾರತ ಆ್ಯಪ್ ಬದಲಾಗಿ ಕೇವಲ ಕರ್ನಾಟಕ ಪ್ರಯಾಣ ಆ್ಯಪ್ ಬಳಸುತ್ತೀರಾ?',
+    lDownload: 'Prayana ಈಗ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಏನು ಮಾಡುತ್ತದೆ?',
+    lFavFeature: 'ಯಾವ ವೈಶಿಷ್ಟ್ಯ ನೀವು ಹೆಚ್ಚು ಬಳಸುತ್ತೀರಿ?',
+    lOneThing: 'Prayana ನ್ನು ಏಕೈಕ ಕರ್ನಾಟಕ ಪ್ರಯಾಣ ಆ್ಯಪ್ ಮಾಡಲು ಒಂದು ವಿಷಯ ಏನು?',
+    lHeard: 'Prayana ಬಗ್ಗೆ ಹೇಗೆ ತಿಳಿಯಿತು?', lOther: 'ನಮಗೆ ಇನ್ನೇನಾದರೂ ಹೇಳಲು ಬಯಸುತ್ತೀರಾ?',
+    // Hints
+    hContact: 'Prayana ಲಾಂಚ್ ಆದಾಗ ತಿಳಿಸಲು',
+    hBucket: 'ನಿರ್ದಿಷ್ಟವಾಗಿ ಹೇಳಿ — ಕೇವಲ ಹಂಪಿ ಅಲ್ಲ, ಅಲ್ಲಿ ಏನು ಮಾಡಲು ಬಯಸುತ್ತೀರಿ',
+    hFrustration: 'ನಿಮ್ಮ ಮುಖ್ಯ ಕಿರಿಕಿರಿ ಆರಿಸಿ',
+    hRank: 'ಮರುಜೋಡಿಸಲು ಎಳೆಯಿರಿ — 1 = ಅತ್ಯಂತ ಮುಖ್ಯ',
+    hOneThing: 'ನಿಮ್ಮ ಅತ್ಯಂತ ಪ್ರಾಮಾಣಿಕ ಉತ್ತರ — ಇದು ನಾವು ನಿರ್ಮಿಸುವದನ್ನು ನೇರವಾಗಿ ರೂಪಿಸುತ್ತದೆ',
+    hDisappoint: 'ಐಚ್ಛಿಕ — ಪ್ರಾಮಾಣಿಕವಾಗಿರಿ',
+    // Info box
+    infoBox: '🎯 ತಪ್ಪು ಉತ್ತರ ಇಲ್ಲ — ಬೇರೆ ಬೇರೆ ಬಳಕೆದಾರರಿಗೆ ಎಷ್ಟು ಆಳ ಬೇಕೆಂದು ಅಳೆಯಲು.',
+    // Buttons
+    btn1next: 'ಮುಂದೆ — ಕರ್ನಾಟಕ ಜ್ಞಾನ →',
+    btn2back: '← ಹಿಂದೆ', btn2next: 'ಮುಂದೆ — ಯೋಜನೆ ರೀತಿ →',
+    btn3back: '← ಹಿಂದೆ', btn3next: 'ಮುಂದೆ — ಆದರ್ಶ ಇಟಿನರರಿ →',
+    btn4back: '← ಹಿಂದೆ', btn4next: 'ಮುಂದೆ — ಕರ್ನಾಟಕ ಜ್ಞಾನ →',
+    btn5back: '← ಹಿಂದೆ', btn5next: 'ಮುಂದೆ — Prayana ಬಗ್ಗೆ →',
+    btn6back: '← ಹಿಂದೆ', submit: '🗺 ಸಲ್ಲಿಸಿ ಮತ್ತು Prayana ಸಮುದಾಯ ಸೇರಿ',
+    // Placeholders
+    phName: 'ಮೊದಲ ಹೆಸರು ಸಾಕು', phContact: '+91 9XXXXXXXXX ಅಥವಾ ಇಮೇಲ್',
+    phBucket: 'ಉದಾ: ಹಂಪಿ ಸೂರ್ಯೋದಯ · ಕುಮಾರ ಪರ್ವತ ಟ್ರೆಕ್ · ಕೊಡಗಿನ ಪಂಡಿ ಕರಿ',
+    phKAWord: 'ಉದಾ: ಪ್ರಾಚೀನ / ಮಂಜು / ಕಾಫಿ / ಅನ್ವೇಷಿಸದ...',
+    phDisappoint: 'ಉದಾ: ಜೋಗ ಜಲಪಾತ ಒಣಗಿತ್ತು — ಯಾರೂ ಎಚ್ಚರಿಸಲಿಲ್ಲ',
+    phBucketDest: 'ಉದಾ: ಯಾನ ಗುಹೆಗಳು · ಹಂಪಿ ಸೂರ್ಯೋದಯ · ಕೊಡಗು ಕಾಫಿ ಎಸ್ಟೇಟ್...',
+    phOneThing: 'ಉದಾ: ಯಾವ ಬಸ್ ಹತ್ತಬೇಕು, ಎಲ್ಲಿ ಕೂರಬೇಕು ಎಂದು ತಿಳಿಸಿ...',
+    phOther: 'ಯಾವುದೇ ಪ್ರತಿಕ್ರಿಯೆ, ವೈಶಿಷ್ಟ್ಯ ಆಲೋಚನೆ, ಕರ್ನಾಟಕ ಪ್ರಯಾಣದ ಬಗ್ಗೆ...',
+    // Rank items
+    rank1: 'ನಿಖರ ಸಾರಿಗೆ ವಿವರಗಳು', rank2: 'ನಿಜವಾದ ಸ್ಥಳೀಯ ಆಹಾರ ತಾಣಗಳು',
+    rank3: 'ಪ್ರಾಮಾಣಿಕ ಬಜೆಟ್ ಅಂದಾಜು', rank4: 'ಮರೆಮಾಡಿದ ತಾಣಗಳು',
+    rank5: 'ಸುರಕ್ಷತಾ ಎಚ್ಚರಿಕೆಗಳು', rank6: 'ಅತ್ಯುತ್ತಮ ಫೋಟೋ ತಾಣಗಳು',
+    // Scale buttons
+    ageU20: '20 ಕ್ಕಿಂತ ಕಡಿಮೆ',
+    freq1: 'ಒಮ್ಮೆ', freq2: '2–3 ಬಾರಿ', freq3: '4–6 ಬಾರಿ', freq4: 'ತಿಂಗಳಿಗೊಮ್ಮೆ',
+    trip1: '1–2 ದಿನ', trip2: '3–4 ದಿನ', trip3: '5–7 ದಿನ', trip4: '8–14 ದಿನ', trip5: '15+ ದಿನ',
+    disYesOften: 'ಹೌದು, ಆಗಾಗ', disOnce: 'ಒಂದೆರಡು ಬಾರಿ', disRarely: 'ಅಪರೂಪ', disNever: 'ಎಂದಿಗೂ ಇಲ್ಲ',
+    // Tags — traveller types
+    tagExplorer: '🗺 ಅನ್ವೇಷಕ', tagFoodie: '🍽 ಆಹಾರ ಪ್ರಿಯ', tagPhotog: '📸 ಛಾಯಾಗ್ರಾಹಕ',
+    tagHistory: '🏛 ಇತಿಹಾಸ ಪ್ರಿಯ', tagNature: '🌿 ಪ್ರಕೃತಿ ಪ್ರಿಯ', tagWeekend: '⚡ ವಾರಾಂತ್ಯ ಪ್ರಯಾಣಿಕ',
+    tagBackpack: '🎒 ಬ್ಯಾಕ್‌ಪ್ಯಾಕರ್', tagFamily: '👨‍👩‍👧 ಕುಟುಂಬ ಪ್ರಯಾಣಿಕ', tagSlow: '🧘 ನಿಧಾನ ಪ್ರಯಾಣಿಕ',
+    // Tags — travel with
+    tagSolo: 'ಏಕಾಂಗಿ', tagPartner: 'ಸಂಗಾತಿ', tagFriends: 'ಸ್ನೇಹಿತರ ಗುಂಪು',
+    tagFamKids: 'ಕುಟುಂಬ + ಮಕ್ಕಳು', tagFamNoKids: 'ಕುಟುಂಬ ಮಕ್ಕಳಿಲ್ಲದ', tagChanges: 'ಪ್ರತಿ ಬಾರಿ ಬದಲಾಗುತ್ತದೆ',
+    // Tags — season
+    tagWinter: '❄️ ಚಳಿಗಾಲ ಅಕ್ಟೋ–ಫೆಬ್ರು', tagSummer: '☀️ ಬೇಸಿಗೆ ಮಾರ್ಚ್–ಮೇ',
+    tagMonsoon: '🌧 ಮಳೆಗಾಲ ಜೂನ್–ಸೆಪ್ಟೆ', tagNoPref: 'ಆದ್ಯತೆ ಇಲ್ಲ',
+    // Tags — when visiting
+    tagNext1: 'ಮುಂದಿನ 1 ತಿಂಗಳು', tag23m: '2–3 ತಿಂಗಳು', tagThisYear: 'ಈ ವರ್ಷ',
+    tagNotSure: 'ಖಚಿತವಿಲ್ಲ', tagJustExploring: 'ಕೇವಲ ಅನ್ವೇಷಿಸುತ್ತಿದ್ದೇನೆ',
+    // Tags — planning method
+    tagGoogle: '🔍 Google ಹುಡುಕಾಟ', tagInsta: '📱 Instagram / Reels', tagYT: '▶️ YouTube',
+    tagAskFriends: '👥 ಸ್ನೇಹಿತರನ್ನು ಕೇಳಿ', tagMMT: '✈️ MakeMyTrip / ಪ್ಯಾಕೇಜ್',
+    tagBlogs: '📝 ಪ್ರಯಾಣ ಬ್ಲಾಗ್', tagReddit: '💬 Reddit / Quora', tagWingIt: '🎲 ಹೋಗಿ ನೋಡೋಣ',
+    // Tags — plan time
+    tagJustGo: 'ನೇರ ಹೋಗುತ್ತೇನೆ', tagFewHours: 'ಕೆಲ ಗಂಟೆಗಳು', tag13days: '1–3 ದಿನ', tagWeek: 'ವಾರ+',
+    // Tags — frustration
+    tagOffbeat: 'ಆಫ್-ಬೀಟ್ ತಾಣ ಹುಡುಕುವುದು', tagSchedule: 'ದಿನವಾರು ವೇಳಾಪಟ್ಟಿ',
+    tagTransport: 'ನಿಖರ ಸಾರಿಗೆ ವಿವರ', tagBudget: 'ವಾಸ್ತವ ಬಜೆಟ್ ಯೋಜನೆ',
+    tagLocalFood: 'ನಿಜವಾದ ಸ್ಥಳೀಯ ಆಹಾರ', tagWorthIt: 'ಪ್ರಯಾಣ ಮೌಲ್ಯಯುತ ಎಂದು ತಿಳಿಯುವುದು',
+    tagAllFrust: 'ಇವೆಲ್ಲ ಪ್ರಾಮಾಣಿಕವಾಗಿ',
+    // Tags — disappointed scale
+    tagYesOften: 'ಹೌದು, ಆಗಾಗ', tagOnceTwice: 'ಒಂದೆರಡು ಬಾರಿ', tagRarely: 'ಅಪರೂಪ', tagNever: 'ಎಂದಿಗೂ ಇಲ್ಲ',
+    // Tags — itinerary needs
+    tagDayDay: '📅 ದಿನವಾರು ವೇಳಾಪಟ್ಟಿ', tagBusTrain: '🚌 ಬಸ್ / ರೈಲು ಸಮಯ',
+    tagRealBudget: '💰 ನಿಜವಾದ ₹ ಬಜೆಟ್', tagHiddenFood: '🍽 ಮರೆಮಾಡಿದ ಆಹಾರ ತಾಣ',
+    tagPhotoSpot: '📸 ಅತ್ಯುತ್ತಮ ಫೋಟೋ ತಾಣ', tagWhatPack: '🎒 ಏನು ಪ್ಯಾಕ್ ಮಾಡಬೇಕು',
+    tagSafetyWarn: '⚠️ ಸುರಕ್ಷತಾ ಎಚ್ಚರಿಕೆ', tagKannadaPhrase: '🗣 ಕನ್ನಡ ನುಡಿಗಟ್ಟು',
+    tagHotelReco: '🏨 ಹೋಟೆಲ್ / ಹೋಮ್‌ಸ್ಟೇ ಸಲಹೆ', tagOffline: '📴 ಆಫ್‌ಲೈನ್ ಪ್ರವೇಶ',
+    tagMapStops: '🗺 ಎಲ್ಲ ತಾಣಗಳ ನಕ್ಷೆ', tagWeather: '🌡 ಹವಾಮಾನ',
+    // Tags — app missing
+    tagNoKA: 'ಕರ್ನಾಟಕ ನಿರ್ದಿಷ್ಟ ಜ್ಞಾನ ಇಲ್ಲ', tagGeneric: 'ಸಾಮಾನ್ಯ ಇಟಿನರರಿ',
+    tagNoStreetFood: 'ನೈಜ ಬೀದಿ ಆಹಾರ ಮಾಹಿತಿ ಇಲ್ಲ', tagUnrealistic: 'ಅವಾಸ್ತವ ಬಜೆಟ್',
+    tagNoSeasonal: 'ಋತು ಎಚ್ಚರಿಕೆ ಇಲ್ಲ', tagAds: 'ಸಲಹೆ ಅಲ್ಲ ಜಾಹಿರಾತು', tagNoOffline: 'ಆಫ್‌ಲೈನ್ ಮೋಡ್ ಇಲ್ಲ',
+    tagComplex: 'ತುಂಬಾ ಸಂಕೀರ್ಣ',
+    // Tags — pay 9
+    tagYesNow: 'ಹೌದು ತಕ್ಷಣ — ಅದು ಏನಲ್ಲ', tagProbablyYes: 'ಬಹುಶಃ — ಗುಣಮಟ್ಟ ಅನುಸಾರ',
+    tagNeedSample: 'ಮಾದರಿ ನೋಡಬೇಕು', tagNoFree: 'ಇಲ್ಲ — ಉಚಿತ ಆದ್ಯತೆ',
+    // Tags — trust
+    tagRealFood: 'ನಿಜ ಸ್ಥಳೀಯ ಆಹಾರ', tagKSRTC: 'ನಿಖರ KSRTC / ರೈಲು',
+    tagHonestWarn: 'ಪ್ರಾಮಾಣಿಕ ಎಚ್ಚರಿಕೆ', tagReviews: 'ಪ್ರಯಾಣಿಕ ವಿಮರ್ಶೆ',
+    tagFreeSample: 'ಮೊದಲು ಉಚಿತ ಮಾದರಿ', tagRefund: 'ಸಮಾಧಾನವಿಲ್ಲದಿದ್ದರೆ ಹಣ ವಾಪಸ್',
+    tagKannadiga: 'ಕನ್ನಡಿಗ ನಿರ್ಮಿಸಿದ್ದಾರೆ',
+    // Tags — KA only
+    tagDepth: 'ಹೌದು — ಆಳ ಮುಖ್ಯ', tagMaybeFeature: 'ಬಹುಶಃ — ವೈಶಿಷ್ಟ್ಯ ಅನುಸಾರ', tagNoAllIndia: 'ಇಲ್ಲ — ಎಲ್ಲ ಭಾರತ ಆದ್ಯತೆ',
+    // Tags — download trigger
+    tagRealItin: 'ನಿಜ ಇಟಿನರರಿ ಮಾದರಿ', tagFriendReco: 'ಸ್ನೇಹಿತರ ಶಿಫಾರಸು',
+    tagInstaReel: 'Instagram / Reel', tagPlayStore: 'Play Store ಫೀಚರ್',
+    tagFreeFirst: 'ಮೊದಲ ಉಚಿತ ಇಟಿನರರಿ', tagPress: 'ಪ್ರೆಸ್ ಕವರೇಜ್', tagYTReview: 'YouTube ವಿಮರ್ಶೆ',
+    // Tags — fav feature
+    tagAIGen: '🤖 AI ಇಟಿನರರಿ ಜನರೇಟರ್', tagFoodMap: '🍽 ಮರೆಮಾಡಿದ ಆಹಾರ ನಕ್ಷೆ',
+    tagFogMap: '🗺 ಮಂಜು ಜಿಲ್ಲೆ ನಕ್ಷೆ', tagKanasu: '🚂 ಕನಸು ದಾರಿ ಮಾರ್ಗ',
+    tagMyCash: '💰 My Cash ವ್ಯಾಲೆಟ್', tagOfflineAcc: '📴 ಆಫ್‌ಲೈನ್ ಪ್ರವೇಶ',
+    // Tags — heard via
+    tagWhatsApp: 'ಸ್ನೇಹಿತ / WhatsApp', tagInstaHeard: 'Instagram',
+    tagLinkedIn: 'LinkedIn', tagCampus: 'ಕಾಲೇಜು / ಕ್ಯಾಂಪಸ್',
+    tagAnkith: 'ಅಂಕಿತ್ ನೇರವಾಗಿ ಹೇಳಿದರು', tagOther: 'ಇತರ',
+    // Success
     successTitle: 'ಧನ್ಯವಾದಗಳು!',
-    successSub: 'Prayana ರೂಪಿಸಲು ಸಹಾಯ ಮಾಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದ. ನಿಮ್ಮ ಉತ್ತರಗಳು ನಾವು ನಿರ್ಮಿಸುವದರಲ್ಲಿ ನೇರವಾಗಿ ಹೋಗುತ್ತವೆ.',
+    successSub: 'Prayana ರೂಪಿಸಲು ಸಹಾಯ ಮಾಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದ. ನಿಮ್ಮ ಉತ್ತರಗಳು ನೇರವಾಗಿ ಹೋಗುತ್ತವೆ.',
+    successReward: 'Founding Contributor ಬ್ಯಾಡ್ಜ್',
+    successRewardSub: 'ನಿಮ್ಮ Prayana ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಶಾಶ್ವತ ಬ್ಯಾಡ್ಜ್ · ಮೊದಲ ಇಟಿನರರಿ ಉಚಿತ · ಮೊದಲ ಪ್ರವೇಶ',
+    successNote: 'Prayana ಲೈವ್ ಆದಾಗ ನಾವು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ. ನಿಮ್ಮ ಫೋನ್ ಗಮನಿಸಿ. 🔴',
   }
 };
 
 let currentLang = 'en';
 
+// Auto-init progress since there is no gate
+window.addEventListener('load', function() { initProgress(); });
+
 function setLang(lang) {
   currentLang = lang;
   const t = TRANSLATIONS[lang];
   const isKN = lang === 'kn';
+  const KN = 'Noto Serif Kannada, serif';
 
-  // Toggle button styles
+  // Toggle buttons
   document.getElementById('btnEN').style.background = isKN ? 'transparent' : '#C8102E';
   document.getElementById('btnEN').style.color = isKN ? '#7A6A50' : 'white';
   document.getElementById('btnKN').style.background = isKN ? '#C8102E' : 'transparent';
   document.getElementById('btnKN').style.color = isKN ? 'white' : '#7A6A50';
 
-  function applyKN(el) {
+  function kn(el) {
     if (!el) return;
-    el.style.fontFamily = isKN ? 'Noto Serif Kannada, serif' : '';
-    el.style.fontSize = isKN ? '13px' : '';
+    el.style.fontFamily = isKN ? KN : '';
+  }
+  function setText(sel, key) {
+    const el = document.querySelector(sel);
+    if (el && t[key] !== undefined) { el.innerHTML = t[key]; kn(el); }
+  }
+  function setAllText(sel, keys) {
+    const els = document.querySelectorAll(sel);
+    els.forEach((el, i) => { if (keys[i] && t[keys[i]] !== undefined) { el.textContent = t[keys[i]]; kn(el); }});
+  }
+  function setPlaceholder(sel, key) {
+    const el = document.querySelector(sel);
+    if (el && t[key]) el.placeholder = t[key];
   }
 
-  // Gate screen
-  const gt = document.querySelector('#gateScreen .gate-title');
-  const gs = document.querySelector('#gateScreen .gate-sub');
-  const opts = document.querySelectorAll('.gate-opt');
-  if(gt) { gt.textContent = t.gateTitle; applyKN(gt); }
-  if(gs) { gs.textContent = t.gateSub; applyKN(gs); }
-  if(opts[0]) { opts[0].querySelector('.gate-opt-text').textContent = t.gateYes; opts[0].querySelector('.gate-opt-sub').textContent = t.gateYesSub; applyKN(opts[0].querySelector('.gate-opt-text')); }
-  if(opts[1]) { opts[1].querySelector('.gate-opt-text').textContent = t.gateNo; opts[1].querySelector('.gate-opt-sub').textContent = t.gateNoSub; }
-  if(opts[2]) { opts[2].querySelector('.gate-opt-text').textContent = t.gateMaybe; opts[2].querySelector('.gate-opt-sub').textContent = t.gateMaybeSub; }
+  // ── Hero ──
+  setText('.hero-eyebrow', 'heroEyebrow');
+  setText('.hero-title', 'heroTitle');
+  setText('.hero-desc', 'heroDesc');
+  setText('.hero-stat:nth-child(1) .hero-stat-label', 'statMin');
+  setText('.hero-stat:nth-child(2) .hero-stat-label', 'statQ');
+  setText('.hero-stat:nth-child(3) .hero-stat-label', 'statGift');
 
-  // Redirect
-  const rt = document.querySelector('#redirectScreen .redirect-title');
-  const rs = document.querySelector('#redirectScreen .redirect-sub');
-  const rsk = document.querySelector('#redirectScreen .redirect-skip');
-  if(rt){ rt.textContent = t.redirectTitle; applyKN(rt); }
-  if(rs){ rs.textContent = t.redirectSub; applyKN(rs); }
-  if(rsk){ rsk.textContent = t.redirectSkip; applyKN(rsk); }
+  // ── Section titles and subs ──
+  const ttls = document.querySelectorAll('.section-ttl');
+  const subs = document.querySelectorAll('.section-sub');
+  const tkeys = ['s1title','s2title','s3title','s4title','s5title','s6title'];
+  const subkeys = ['s1sub','s2sub','s3sub','s4sub','s5sub','s6sub'];
+  ttls.forEach((el,i) => { if(tkeys[i]&&t[tkeys[i]]) { el.textContent=t[tkeys[i]]; kn(el); }});
+  subs.forEach((el,i) => { if(subkeys[i]&&t[subkeys[i]]) { el.textContent=t[subkeys[i]]; kn(el); }});
 
-  // Section titles
-  const secTitles = document.querySelectorAll('.section-ttl');
-  const keys = ['s1','s2','s3','s4','s5','s6'];
-  secTitles.forEach((el,i) => { if(keys[i] && t[keys[i]]) { el.textContent = t[keys[i]]; applyKN(el); }});
+  // ── Field labels ──
+  const flEls = document.querySelectorAll('.fl');
+  const flKeys = ['lName','lContact','lLocation','lAge','lFreq','lTravellerType','lWith','lBudget',
+    'lHeardOf','lRegion','lWhen','lSeason','lTripLen','lBucket','lKAWord',
+    'lPlanMethod','lPlanTime','lFrustration','lDisappoint','lDisappointDetail',
+    'lItinNeeds','lRank','lMissing','lPay9','lTrust',
+    'lKAExp','lFoodTried','lBucketDest','lAssoc',
+    'lKAOnly','lDownload','lFavFeature','lOneThing','lHeard','lOther'];
+  flEls.forEach((el,i) => {
+    if(flKeys[i] && t[flKeys[i]]) {
+      // Preserve the required star if present
+      const req = el.querySelector('.req');
+      el.innerHTML = t[flKeys[i]];
+      if(req) el.appendChild(req);
+      kn(el);
+    }
+  });
 
-  // Submit button
+  // ── Hints ──
+  const hints = document.querySelectorAll('.fhint');
+  const hintKeys = ['hContact',null,null,null,null,null,null,null,
+    null,null,null,null,null,'hBucket',null,
+    null,null,'hFrustration',null,'hDisappoint',
+    null,'hRank',null,null,null,
+    null,null,null,null,null,null,null,'hOneThing',null,null];
+  hints.forEach((el,i) => { if(hintKeys[i] && t[hintKeys[i]]) { el.textContent=t[hintKeys[i]]; kn(el); }});
+
+  // ── Info box ──
+  const infoBox = document.querySelector('.info-box');
+  if(infoBox && t.infoBox) { infoBox.textContent=t.infoBox; kn(infoBox); }
+
+  // ── Navigation buttons ──
+  const nextBtns = document.querySelectorAll('.btn-next');
+  const backBtns = document.querySelectorAll('.btn-back');
+  const nkeys = ['btn1next','btn2next','btn3next','btn4next','btn5next'];
+  const bkeys = ['btn2back','btn3back','btn4back','btn5back','btn6back'];
+  nextBtns.forEach((el,i) => { if(nkeys[i]&&t[nkeys[i]]) { el.textContent=t[nkeys[i]]; kn(el); }});
+  backBtns.forEach((el,i) => { if(bkeys[i]&&t[bkeys[i]]) { el.textContent=t[bkeys[i]]; kn(el); }});
+
+  // ── Submit button ──
   const submitBtn = document.querySelector('.btn-submit');
-  if(submitBtn){ submitBtn.innerHTML = t.submit; }
+  if(submitBtn && t.submit) { submitBtn.innerHTML=t.submit; kn(submitBtn); }
 
-  // Success screen
+  // ── Placeholders ──
+  setPlaceholder('input[name="name"]', 'phName');
+  setPlaceholder('input[name="contact"]', 'phContact');
+  setPlaceholder('textarea[name="bucket_list"]', 'phBucket');
+  setPlaceholder('input[name="karnataka_word"]', 'phKAWord');
+  setPlaceholder('textarea[name="disappointment_detail"]', 'phDisappoint');
+  setPlaceholder('input[name="bucket_list_dest"]', 'phBucketDest');
+  setPlaceholder('textarea[name="one_thing"]', 'phOneThing');
+  setPlaceholder('textarea[name="other"]', 'phOther');
+
+  // ── Rank items ──
+  const rankItems = document.querySelectorAll('.rank-txt');
+  const rankKeys = ['rank1','rank2','rank3','rank4','rank5','rank6'];
+  rankItems.forEach((el,i) => { if(rankKeys[i]&&t[rankKeys[i]]) { el.textContent=t[rankKeys[i]]; kn(el); }});
+
+  // ── Scale buttons — target by onclick attribute (reliable) ──
+  const scaleMap = {
+    age:      { kn: ['20 ಕ್ಕಿಂತ ಕಡಿಮೆ','20–25','26–30','31–40','40+'],       en: ['Under 20','20–25','26–30','31–40','40+'] },
+    freq:     { kn: ['ಒಮ್ಮೆ','2–3 ಬಾರಿ','4–6 ಬಾರಿ','ತಿಂಗಳಿಗೊಮ್ಮೆ'],          en: ['Once','2–3×','4–6×','Monthly'] },
+    triplen:  { kn: ['1–2 ದಿನ','3–4 ದಿನ','5–7 ದಿನ','8–14 ದಿನ','15+ ದಿನ'],    en: ['1–2 days','3–4 days','5–7 days','8–14 days','15+ days'] },
+    disappoint:{ kn: ['ಹೌದು, ಆಗಾಗ','ಒಂದೆರಡು ಬಾರಿ','ಅಪರೂಪ','ಎಂದಿಗೂ ಇಲ್ಲ'], en: ['Yes, often','Once or twice','Rarely','Never'] },
+  };
+  Object.entries(scaleMap).forEach(([group, vals]) => {
+    const btns = document.querySelectorAll(`.sbtn[onclick*="${group}"]`);
+    const list = isKN ? vals.kn : vals.en;
+    btns.forEach((el,i) => { if(list[i]!==undefined){ el.textContent=list[i]; isKN?kn(el):el.style.fontFamily=''; }});
+  });
+
+  // ── Tags — all sections ──
+  // Map each tag row to its Kannada translations
+  const tagTranslations = {
+    // Traveller types
+    '🗺 Explorer': '🗺 ಅನ್ವೇಷಕ', '🍽 Foodie': '🍽 ಆಹಾರ ಪ್ರಿಯ',
+    '📸 Photographer': '📸 ಛಾಯಾಗ್ರಾಹಕ', '🏛 History buff': '🏛 ಇತಿಹಾಸ ಪ್ರಿಯ',
+    '🌿 Nature lover': '🌿 ಪ್ರಕೃತಿ ಪ್ರಿಯ', '⚡ Weekend warrior': '⚡ ವಾರಾಂತ್ಯ ಪ್ರಯಾಣಿಕ',
+    '🎒 Backpacker': '🎒 ಬ್ಯಾಕ್‌ಪ್ಯಾಕರ್', '🧘 Slow traveller': '🧘 ನಿಧಾನ ಪ್ರಯಾಣಿಕ',
+    // Travel with
+    'Solo': 'ಏಕಾಂಗಿ', 'Partner': 'ಸಂಗಾತಿ', 'Friend group': 'ಸ್ನೇಹಿತರ ಗುಂಪು',
+    'Family + kids': 'ಕುಟುಂಬ + ಮಕ್ಕಳು', 'Family no kids': 'ಕುಟುಂಬ ಮಕ್ಕಳಿಲ್ಲ',
+    'Changes every trip': 'ಪ್ರತಿ ಬಾರಿ ಬದಲಾಗುತ್ತದೆ',
+    // Season
+    '❄️ Winter Oct–Feb': '❄️ ಚಳಿಗಾಲ ಅಕ್ಟೋ–ಫೆಬ್ರು',
+    '☀️ Summer Mar–May': '☀️ ಬೇಸಿಗೆ ಮಾರ್ಚ್–ಮೇ',
+    '🌧 Monsoon Jun–Sep': '🌧 ಮಳೆಗಾಲ ಜೂನ್–ಸೆಪ್ಟೆ',
+    'No preference': 'ಆದ್ಯತೆ ಇಲ್ಲ',
+    // When visiting
+    'Next 1 month': 'ಮುಂದಿನ 1 ತಿಂಗಳು', '2–3 months': '2–3 ತಿಂಗಳು',
+    'This year': 'ಈ ವರ್ಷ', 'Not sure yet': 'ಖಚಿತವಿಲ್ಲ',
+    'Just exploring': 'ಕೇವಲ ಅನ್ವೇಷಿಸುತ್ತಿದ್ದೇನೆ',
+    // Planning
+    '🔍 Google search': '🔍 Google ಹುಡುಕಾಟ', '📱 Instagram / Reels': '📱 Instagram / Reels',
+    '▶️ YouTube': '▶️ YouTube', '👥 Ask friends': '👥 ಸ್ನೇಹಿತರನ್ನು ಕೇಳಿ',
+    '✈️ MakeMyTrip / packages': '✈️ MakeMyTrip / ಪ್ಯಾಕೇಜ್',
+    '📝 Travel blogs': '📝 ಪ್ರಯಾಣ ಬ್ಲಾಗ್', '💬 Reddit / Quora': '💬 Reddit / Quora',
+    '🎲 Wing it on arrival': '🎲 ಹೋಗಿ ನೋಡೋಣ',
+    // Plan time
+    'I just go — no planning': 'ನೇರ ಹೋಗುತ್ತೇನೆ', 'A few hours': 'ಕೆಲ ಗಂಟೆಗಳು',
+    '1–3 days': '1–3 ದಿನ', 'A week+': 'ವಾರ+',
+    // Frustration
+    'Finding off-beat places': 'ಆಫ್-ಬೀಟ್ ತಾಣ ಹುಡುಕುವುದು',
+    'Building day-by-day schedule': 'ದಿನವಾರು ವೇಳಾಪಟ್ಟಿ ನಿರ್ಮಿಸುವುದು',
+    'Exact transport details': 'ನಿಖರ ಸಾರಿಗೆ ವಿವರ',
+    'Realistic budget planning': 'ವಾಸ್ತವ ಬಜೆಟ್ ಯೋಜನೆ',
+    'Finding real local food': 'ನಿಜವಾದ ಸ್ಥಳೀಯ ಆಹಾರ ಹುಡುಕುವುದು',
+    "Not knowing if it's worth the trip": 'ಪ್ರಯಾಣ ಮೌಲ್ಯಯುತ ಎಂದು ತಿಳಿಯದಿರುವುದು',
+    'All of these honestly': 'ಇವೆಲ್ಲ ಪ್ರಾಮಾಣಿಕವಾಗಿ',
+    // Itinerary needs
+    '📅 Day-by-day schedule with timings': '📅 ದಿನವಾರು ವೇಳಾಪಟ್ಟಿ',
+    '🚌 Exact bus / train with departure times': '🚌 ಬಸ್ / ರೈಲು ನಿರ್ಗಮನ ಸಮಯ',
+    '💰 Real budget breakdown in ₹': '💰 ನಿಜ ₹ ಬಜೆಟ್ ವಿವರ',
+    '🍽 Hidden local food spots': '🍽 ಮರೆಮಾಡಿದ ಆಹಾರ ತಾಣ',
+    '📸 Best photo spots + timing': '📸 ಅತ್ಯುತ್ತಮ ಫೋಟೋ ತಾಣ',
+    '🎒 What to pack for that destination': '🎒 ಏನು ತೆಗೆದುಕೊಳ್ಳಬೇಕು',
+    '⚠️ Safety + seasonal warnings': '⚠️ ಸುರಕ್ಷತಾ ಮತ್ತು ಋತು ಎಚ್ಚರಿಕೆ',
+    '🗣 Local Kannada phrases': '🗣 ಸ್ಥಳೀಯ ಕನ್ನಡ ನುಡಿಗಟ್ಟು',
+    '🏨 Specific hotel / homestay recommendations': '🏨 ಹೋಟೆಲ್ / ಹೋಮ್‌ಸ್ಟೇ ಸಲಹೆ',
+    '📴 Offline access — no internet needed': '📴 ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆ ಪ್ರವೇಶ',
+    '🗺 Map with all stops': '🗺 ಎಲ್ಲ ತಾಣಗಳ ನಕ್ಷೆ',
+    '🌡 Weather for those days': '🌡 ಆ ದಿನಗಳ ಹವಾಮಾನ',
+    // App missing
+    'No Karnataka-specific knowledge': 'ಕರ್ನಾಟಕ ನಿರ್ದಿಷ್ಟ ಜ್ಞಾನ ಇಲ್ಲ',
+    'Generic copy-paste itineraries': 'ಸಾಮಾನ್ಯ ಕಾಪಿ-ಪೇಸ್ಟ್ ಇಟಿನರರಿ',
+    'No real street food info': 'ನೈಜ ಬೀದಿ ಆಹಾರ ಮಾಹಿತಿ ಇಲ್ಲ',
+    'Unrealistic budgets': 'ಅವಾಸ್ತವ ಬಜೆಟ್', 'No seasonal warnings': 'ಋತು ಎಚ್ಚರಿಕೆ ಇಲ್ಲ',
+    'Feels like ads not advice': 'ಸಲಹೆ ಅಲ್ಲ ಜಾಹಿರಾತಿನಂತೆ',
+    'No offline mode': 'ಆಫ್‌ಲೈನ್ ಮೋಡ್ ಇಲ್ಲ', 'Too complicated to use': 'ತುಂಬಾ ಸಂಕೀರ್ಣ',
+    // Pay 9
+    "Yes immediately — that's nothing": 'ಹೌದು ತಕ್ಷಣ — ಅದು ಏನಲ್ಲ',
+    'Probably — depends on quality': 'ಬಹುಶಃ — ಗುಣಮಟ್ಟ ಅನುಸಾರ',
+    'Maybe — need to see a sample': 'ಬಹುಶಃ — ಮಾದರಿ ನೋಡಬೇಕು',
+    'No — prefer free options': 'ಇಲ್ಲ — ಉಚಿತ ಆದ್ಯತೆ',
+    // Trust
+    'Real local food recommendations': 'ನಿಜ ಸ್ಥಳೀಯ ಆಹಾರ ಶಿಫಾರಸು',
+    'Accurate KSRTC / train details': 'ನಿಖರ KSRTC / ರೈಲು ವಿವರ',
+    'Honest warnings (dry waterfalls etc)': 'ಪ್ರಾಮಾಣಿಕ ಎಚ್ಚರಿಕೆ',
+    'Reviews from other travellers': 'ಇತರ ಪ್ರಯಾಣಿಕರ ವಿಮರ್ಶೆ',
+    'Free sample before paying': 'ಪಾವತಿ ಮೊದಲು ಉಚಿತ ಮಾದರಿ',
+    'Refund if not satisfied': 'ತೃಪ್ತಿ ಇಲ್ಲದಿದ್ದರೆ ಹಣ ವಾಪಸ್',
+    'Someone from Karnataka built it': 'ಕನ್ನಡಿಗ ನಿರ್ಮಿಸಿದ್ದಾರೆ',
+    // KA only
+    'Yes — depth over breadth': 'ಹೌದು — ಆಳ ಮುಖ್ಯ',
+    'Maybe — depends on features': 'ಬಹುಶಃ — ವೈಶಿಷ್ಟ್ಯ ಅನುಸಾರ',
+    'No — prefer all-India': 'ಇಲ್ಲ — ಎಲ್ಲ ಭಾರತ ಆದ್ಯತೆ',
+    // Download trigger
+    'Seeing a real itinerary sample': 'ನಿಜ ಇಟಿನರರಿ ಮಾದರಿ ನೋಡಿ',
+    'Friend recommendation': 'ಸ್ನೇಹಿತರ ಶಿಫಾರಸು',
+    'Instagram post / Reel': 'Instagram ಪೋಸ್ಟ್ / Reel',
+    'Play Store feature': 'Play Store ಫೀಚರ್',
+    'Free first itinerary': 'ಮೊದಲ ಉಚಿತ ಇಟಿನರರಿ',
+    'Press coverage': 'ಪ್ರೆಸ್ ಕವರೇಜ್',
+    'YouTube review': 'YouTube ವಿಮರ್ಶೆ',
+    // Fav feature
+    '🤖 AI itinerary generator': '🤖 AI ಇಟಿನರರಿ ಜನರೇಟರ್',
+    '🍽 Hidden food spots map': '🍽 ಮರೆಮಾಡಿದ ಆಹಾರ ನಕ್ಷೆ',
+    '🗺 Fog-of-war district map': '🗺 ಮಂಜು ಜಿಲ್ಲೆ ನಕ್ಷೆ',
+    '🚂 Kanasu Daari dream routes': '🚂 ಕನಸು ದಾರಿ ಮಾರ್ಗ',
+    '💰 My Cash wallet + free trips': '💰 My Cash ವ್ಯಾಲೆಟ್ + ಉಚಿತ ಪ್ರಯಾಣ',
+    '📴 Offline itinerary access': '📴 ಆಫ್‌ಲೈನ್ ಇಟಿನರರಿ ಪ್ರವೇಶ',
+    // Heard via
+    'Friend / WhatsApp': 'ಸ್ನೇಹಿತ / WhatsApp',
+    'Instagram': 'Instagram', 'LinkedIn': 'LinkedIn',
+    'College / Campus': 'ಕಾಲೇಜು / ಕ್ಯಾಂಪಸ್',
+    'Ankith told me directly': 'ಅಂಕಿತ್ ನೇರವಾಗಿ ಹೇಳಿದರು',
+    'Other': 'ಇತರ',
+  };
+
+  // Apply tag translations
+  document.querySelectorAll('.tag').forEach(tag => {
+    const orig = tag.getAttribute('data-en') || tag.textContent.trim();
+    if (!tag.getAttribute('data-en')) tag.setAttribute('data-en', orig);
+    if (isKN && tagTranslations[orig]) {
+      tag.textContent = tagTranslations[orig];
+      kn(tag);
+    } else {
+      tag.textContent = tag.getAttribute('data-en');
+      tag.style.fontFamily = '';
+    }
+  });
+
+  // ── Success screen ──
   const st = document.querySelector('#successScreen .success-title');
   const ss = document.querySelector('#successScreen .success-sub');
-  if(st){ st.textContent = t.successTitle; applyKN(st); }
-  if(ss){ ss.textContent = t.successSub; applyKN(ss); }
+  const sr = document.querySelector('#successScreen .success-reward');
+  const srs = document.querySelector('#successScreen .success-reward-sub');
+  const sn = document.querySelector('#successScreen p[style]');
+  if(st && t.successTitle){ st.textContent=t.successTitle; kn(st); }
+  if(ss && t.successSub){ ss.textContent=t.successSub; kn(ss); }
+  if(sr && t.successReward){ sr.textContent=t.successReward; kn(sr); }
+  if(srs && t.successRewardSub){ srs.textContent=t.successRewardSub; kn(srs); }
+  if(sn && t.successNote){ sn.textContent=t.successNote; kn(sn); }
 }
 </script>
 </body>
